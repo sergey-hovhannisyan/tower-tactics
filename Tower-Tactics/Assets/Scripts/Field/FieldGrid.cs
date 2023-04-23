@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class FieldGrid : MonoBehaviour
 {
-    public int height = 10;
     public int width = 10;
-
+    public int height = 20;
+    
     public float gridSpaceSize = 5f;
+
+    public Transform gridBackgroundTransform; 
 
     [SerializeField] private GameObject gridCellPrefab;
     private GameObject[,] fieldGrid; 
@@ -21,7 +23,7 @@ public class FieldGrid : MonoBehaviour
     // Creates the grid when the game starts
     private void CreateGrid()
     {
-        fieldGrid = new GameObject[height, width];
+        fieldGrid = new GameObject[width, height];
         if (gridCellPrefab == null)
         {
             Debug.LogError("ERROR: Grid Cell Prefab on the field grid is not assigned");
@@ -29,18 +31,19 @@ public class FieldGrid : MonoBehaviour
         }
 
         // Make the grid
-        for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++)
         {
-            for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
             {
                 // Create a new GridSpace object for each cell
                 fieldGrid[x, y] = Instantiate(gridCellPrefab, new Vector3(x * gridSpaceSize, y * gridSpaceSize), Quaternion.identity);
                 fieldGrid[x, y].GetComponent<GridCell>().SetPosition(x, y);
                 fieldGrid[x, y].transform.parent = transform; 
-                fieldGrid[x, y].gameObject.name = "Grid Space ( X: ) " + x.ToString() + " , Y: " + y.ToString() + ")";
-                
+                fieldGrid[x, y].gameObject.name = "Grid Space ( X: ) " + x.ToString() + " , Y: " + y.ToString() + ")";        
             }
         }
+        gameObject.transform.position = new Vector3(-97.5f, 0.1f, -47f);
+        gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
     // Gets the grid position from the world position
