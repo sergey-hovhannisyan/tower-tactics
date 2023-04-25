@@ -272,7 +272,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Friend
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6778617668963153345, guid: 14fe30bae36972f41887b885eaec03af, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 14fe30bae36972f41887b885eaec03af, type: 3}
 --- !u!1 &636030326
 GameObject:
@@ -413,7 +414,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Heavy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6778617668963153345, guid: 069315eb0b7e7ca4bbd36964347f6047, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 069315eb0b7e7ca4bbd36964347f6047, type: 3}
 --- !u!1 &1147091577
 GameObject:
@@ -584,7 +586,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fast
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6778617668963153345, guid: 20ee3848c67a1ad48b95f76dd8be71bb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 20ee3848c67a1ad48b95f76dd8be71bb, type: 3}
 --- !u!1001 &6778617667084774079
 PrefabInstance:
