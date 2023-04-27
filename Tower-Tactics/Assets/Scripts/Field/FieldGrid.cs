@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FieldGrid : MonoBehaviour
 {
-    public int width = 21;
-    public int height = 1;
+    public int width = 42;
+    public int height = 16;
     
     public float gridSpaceSize = 1f;
 
@@ -42,7 +42,7 @@ public class FieldGrid : MonoBehaviour
                 fieldGrid[x, y].gameObject.name = "Grid Space ( X: ) " + x.ToString() + " , Y: " + y.ToString() + ")";        
             }
         }
-        gameObject.transform.position = new Vector3(-11f, 0.01f, -5f);
+        gameObject.transform.position = new Vector3(-20.5f, 0.01f, -7f);
         gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
