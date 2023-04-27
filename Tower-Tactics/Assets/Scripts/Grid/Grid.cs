@@ -2,26 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FieldGrid : MonoBehaviour
+public class Grid : MonoBehaviour
 {
-    public int width = 10;
-    public int height = 20;
+    #region Properties
+    public int width = 42;
+    public int height = 16;
     
-    public float gridSpaceSize = 5f;
+    public float gridSpaceSize = 1f;
 
-    public Transform gridBackgroundTransform; 
+    public Transform gridBackgroundTransform;
 
+    private GameManager _gameManager;
     [SerializeField] private GameObject gridCellPrefab;
     private GameObject[,] fieldGrid; 
 
+    #endregion
 
     void Start()
     {
-        CreateGrid();
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
+    #region Public: Grid Instantiation & Clearing Methods
     // Creates the grid when the game starts
-    private void CreateGrid()
+    public void CreateGrid()
     {
         fieldGrid = new GameObject[width, height];
         if (gridCellPrefab == null)
@@ -42,28 +46,35 @@ public class FieldGrid : MonoBehaviour
                 fieldGrid[x, y].gameObject.name = "Grid Space ( X: ) " + x.ToString() + " , Y: " + y.ToString() + ")";        
             }
         }
-        gameObject.transform.position = new Vector3(-97.5f, 0.1f, -47f);
+        Vector3 gridSize = new Vector3(width * gridSpaceSize, -0.1f, height * gridSpaceSize);
+        gameObject.transform.position = gridBackgroundTransform.position - gridSize/2;
         gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
-    // Gets the grid position from the world position
-    public Vector2Int GetGridPosFromWorld(Vector3 worldPosition)
+    // Clears all objects from the grid
+    public void ClearGrid()
     {
-        int x = Mathf.FloorToInt(worldPosition.x / gridSpaceSize);
-        int y = Mathf.FloorToInt(worldPosition.z / gridSpaceSize);
-
-        x = Mathf.Clamp(x, 0, width);
-        y = Mathf.Clamp(y, 0, height);
-
-        return new Vector2Int(x, y);
+        for(int x = 0; x < width; x++)
+        {
+            for(int y = 0; y < height; y++)
+            {
+                GridCell cell = fieldGrid[x, y].GetComponent<GridCell>();
+                if (cell.isOccupied)
+                {
+                    Destroy(cell.objectInThisGridSpace);
+                    cell.objectInThisGridSpace = null;
+                    cell.isOccupied = false;
+                }
+            }
+        }
     }
 
-    // Gets the world position of a grid position
-    public Vector3 GetWorldPosFromGridPos(Vector2Int gridPos)
+    // Destroys the grid
+    public void DestroyGrid()
     {
-        float x = gridPos.x * gridSpaceSize; 
-        float y = gridPos.y * gridSpaceSize; 
-
-        return new Vector3(x, 0, y);
+        ClearGrid();
+        Destroy(gameObject);
     }
+
+    #endregion
 }
