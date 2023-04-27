@@ -9,7 +9,7 @@ public class FieldGrid : MonoBehaviour
     
     public float gridSpaceSize = 1f;
 
-    public Transform gridBackgroundTransform; 
+    public Transform gridBackgroundTransform;
 
     [SerializeField] private GameObject gridCellPrefab;
     private GameObject[,] fieldGrid; 
@@ -42,7 +42,8 @@ public class FieldGrid : MonoBehaviour
                 fieldGrid[x, y].gameObject.name = "Grid Space ( X: ) " + x.ToString() + " , Y: " + y.ToString() + ")";        
             }
         }
-        gameObject.transform.position = new Vector3(-20.5f, 0.01f, -7f);
+        Vector3 gridSize = new Vector3(width * gridSpaceSize, -0.1f, height * gridSpaceSize);
+        gameObject.transform.position = gridBackgroundTransform.position - gridSize/2;
         gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 

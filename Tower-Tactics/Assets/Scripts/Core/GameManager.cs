@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    #region Properties
+
     private Camera mainCam;
     public GameObject selectedObjectPrefab;
     private bool objectSelected = false;
 
+    #endregion
+
+    #region Control Properties
+    
     private void Awake() 
     {
         if (FindObjectsOfType<GameManager>().Length > 1)
@@ -31,6 +37,10 @@ public class GameManager : MonoBehaviour
         
     }
 
+    #endregion
+    
+    #region Private: GridCell Methods
+
     // Gets the cell that the player is touching
     private GridCell GetCellFromTouch(Touch touch)
     {
@@ -53,6 +63,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Public: GridCell Interface Methods
+    public void InsertObjectIntoCell(Touch touch)
+    {
+        GridCell cellTouchIsOver = GetCellFromTouch(touch);
+        if (cellTouchIsOver != null)
+        {
+            if (objectSelected)
+            {
+                DropInCell(cellTouchIsOver);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Object Selection Methods
     // Selects a tower from the UI
     public void SelectObject(GameObject objectPrefab)
     {
@@ -66,4 +94,6 @@ public class GameManager : MonoBehaviour
         selectedObjectPrefab = null;
         objectSelected = false;
     }
+    
+    #endregion
 }
