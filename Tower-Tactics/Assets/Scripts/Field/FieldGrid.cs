@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class FieldGrid : MonoBehaviour
 {
-    public int width = 10;
-    public int height = 20;
+    public int width = 42;
+    public int height = 16;
     
-    public float gridSpaceSize = 5f;
+    public float gridSpaceSize = 1f;
 
     public Transform gridBackgroundTransform; 
 
@@ -42,7 +42,7 @@ public class FieldGrid : MonoBehaviour
                 fieldGrid[x, y].gameObject.name = "Grid Space ( X: ) " + x.ToString() + " , Y: " + y.ToString() + ")";        
             }
         }
-        gameObject.transform.position = new Vector3(-97.5f, 0.1f, -47f);
+        gameObject.transform.position = new Vector3(-20.5f, 0.01f, -7f);
         gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 

@@ -31,7 +31,7 @@ public class DropInCell : MonoBehaviour
         {
             // get the touch position from the screen touch to world point
             Vector3 touchedPos = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, 
-                touch.position.y, -mainCamera.transform.position.z));
+            touch.position.y, -mainCamera.transform.position.z));
             // lerp and set the position of the current object to that of the touch, but smoothly over time.
             Debug.Log("Touch position: " + touch.position); // Add this line
             Debug.Log("Touched world position: " + touchedPos); 
