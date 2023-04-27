@@ -5,19 +5,21 @@ using UnityEngine;
 public class Selectable : MonoBehaviour
 {
     GameManager _gameManager;
+    public GameObject objectPrefab;
+    private bool _isSelected = false;
+
     private void Awake ()
     {
         _gameManager = FindObjectOfType<GameManager>();
     }
 
-    public void SelectCurrentObject()
+    public void SelectSwitch()
     {
-        _gameManager.SelectObject(gameObject);
-    }    
-
-    // Deselects the current object: Used for testing
-    public void DeselectCurrentObject()
-    {
-        _gameManager.DeselectObject();
+        if (_isSelected)
+            _gameManager.DeselectObject();
+        else
+            _gameManager.SelectObject(objectPrefab);
+        
+        _isSelected = !_isSelected;
     }
 }
