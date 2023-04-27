@@ -5,6 +5,7 @@ using UnityEngine;
 public class Selectable : MonoBehaviour
 {
     GameManager _gameManager;
+    public GameObject objectPrefab;
     private bool _isSelected = false;
 
     private void Awake ()
@@ -15,20 +16,10 @@ public class Selectable : MonoBehaviour
     public void SelectSwitch()
     {
         if (_isSelected)
-            DeselectCurrentObject();
+            _gameManager.DeselectObject();
         else
-            SelectCurrentObject();
+            _gameManager.SelectObject(objectPrefab);
         
         _isSelected = !_isSelected;
-    }
-
-    private void SelectCurrentObject()
-    {
-        _gameManager.SelectObject(gameObject);
-    }    
-
-    private void DeselectCurrentObject()
-    {
-        _gameManager.DeselectObject();
     }
 }
