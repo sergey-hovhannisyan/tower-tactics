@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     private Camera mainCam;
     public GameObject selectedObjectPrefab;
-    private bool objectSelected = false;
+    public bool objectSelected = false;
     public Grid grid;
 
     #endregion
@@ -28,9 +29,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StartGame()
+    {
+        SceneManager.LoadScene("GameScene");
+        grid.CreateGrid();
+    }
+
+    public void EndGame()
+    {
+        grid.ClearGrid();
+        SceneManager.LoadScene("MainMenu");
+    }
+
     private void Start()
     {
-         grid.CreateGrid();
+         //grid.CreateGrid();
     }
 
     private void Update()
@@ -101,14 +114,23 @@ public class GameManager : MonoBehaviour
 
     #region Object Selection Methods
     // Selects a tower from the UI
-    public void SelectObject(GameObject objectPrefab)
+    public void SelectSwitch(GameObject objectPrefab)
+    {
+        if (objectSelected && objectPrefab == selectedObjectPrefab)
+            DeselectObject();
+        else
+            SelectObject(objectPrefab);
+    }
+
+    // Selects a tower from the UI
+    private void SelectObject(GameObject objectPrefab)
     {
         selectedObjectPrefab = objectPrefab;
         objectSelected = true;
     }
 
     // De-selects a tower from the UI
-    public void DeselectObject()
+    private void DeselectObject()
     {
         selectedObjectPrefab = null;
         objectSelected = false;
