@@ -9,6 +9,8 @@ TagManager:
   - cell
   - enemy
   - Touchable
+  - Bullet
+  - DamageOverTime
   layers:
   - Default
   - TransparentFX

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region Properties
-
+    
     private Camera mainCam;
     public GameObject selectedObjectPrefab;
     public bool objectSelected = false;
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
     // Drops a tower into a cell
     private void DropInCell(GridCell cell)
     {
-        if (selectedObjectPrefab && !cell.isOccupied    )
+        if (selectedObjectPrefab && !cell.isOccupied)
         {
             GameObject newTower = Instantiate(selectedObjectPrefab, cell.transform.position, Quaternion.identity);
             cell.objectInThisGridSpace = newTower;
