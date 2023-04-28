@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject selectedObjectPrefab;
     public bool objectSelected = false;
     public Grid grid;
+    private InputManager _inputManager;
 
     #endregion
 
@@ -25,26 +26,38 @@ public class GameManager : MonoBehaviour
         else
         {
             mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            _inputManager = gameObject.GetComponent<InputManager>();
             DontDestroyOnLoad(gameObject);
         }
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene");
+        _inputManager.ResumeGame();
         grid.CreateGrid();
     }
 
-    public void EndGame()
+    public void QuitGame()
     {
-        grid.ClearGrid();
-        SceneManager.LoadScene("MainMenu");
+        Application.Quit();
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        _inputManager.PauseGame();
+        DeselectObject();
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        _inputManager.ResumeGame();
     }
 
     private void Start()
     {
-        //Only for testing purposes
-        grid.CreateGrid();
+        PauseGame();
     }
 
     private void Update()
