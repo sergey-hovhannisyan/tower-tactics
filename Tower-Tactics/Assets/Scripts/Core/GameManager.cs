@@ -60,6 +60,11 @@ public class GameManager : MonoBehaviour
         PauseGame();
     }
 
+    public void CleanUp()
+    {
+        grid.ClearGrid();
+    }
+
     private void Update()
     {
         
