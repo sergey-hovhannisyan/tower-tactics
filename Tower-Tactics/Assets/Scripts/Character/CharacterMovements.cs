@@ -47,6 +47,10 @@ public class CharacterMovements : MonoBehaviour
             deathCoroutine = StartCoroutine(ChangeCapsuleColliderHeight(0.9f, 2.3f));
             StartCoroutine(DestroyAfterDelay(3.0f));
         }
+
+        if (Vector3.Distance(transform.position, destination) < 0.3f){
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator ChangeCapsuleColliderHeight(float targetHeight, float duration)
