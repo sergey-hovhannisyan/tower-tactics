@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScenes/TowerTests.unity
     guid: 20ed32e0b178cc1419b2791a479c94ea
   - enabled: 1
-    path: Assets/Scenes/KerwinTest.unity
+    path: Assets/Scenes/TestScenes/KerwinTest.unity
     guid: 51197b2b346bdcd41a760c3b2b00fca2
   m_configObjects: {}
