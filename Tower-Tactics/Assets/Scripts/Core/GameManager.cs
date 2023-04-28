@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public int spawnCount = 5;
     private float elapsedTime;
     private int enemiesSpawnedInCurrentWave;
+    private InputManager _inputManager;
 
     #endregion
 
@@ -32,29 +33,46 @@ public class GameManager : MonoBehaviour
         else
         {
             mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            _inputManager = gameObject.GetComponent<InputManager>();
             DontDestroyOnLoad(gameObject);
         }
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene");
-        grid.CreateGrid();
-    }
-
-    public void EndGame()
-    {
-        grid.ClearGrid();
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    private void Start()
-    {
-        //Only for testing purposes
+        _inputManager.ResumeGame();
         grid.CreateGrid();
         elapsedTime = 0f;
         enemiesSpawnedInCurrentWave = 0;
         StartCoroutine(SpawnEnemyRoutine());
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        _inputManager.PauseGame();
+        DeselectObject();
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        _inputManager.ResumeGame();
+    }
+
+    private void Start()
+    {
+        PauseGame();
+    }
+
+    public void CleanUp()
+    {
+        grid.ClearGrid();
     }
 
     private void Update()
