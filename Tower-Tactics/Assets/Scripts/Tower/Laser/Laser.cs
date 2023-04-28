@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    public GameObject laserPrefab;
+    public GameObject spawnedLaser;
     public Transform spawnPoint;
     public TowerAiming towerAiming;
-    private GameObject spawnedLaser;
     private LineRenderer lineRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        spawnedLaser = Instantiate(laserPrefab,spawnPoint.position,spawnPoint.rotation);
+        spawnedLaser.SetActive(true);
         lineRenderer = spawnedLaser.GetComponent<LineRenderer>();
     }
 

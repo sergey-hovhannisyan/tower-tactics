@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Cell
   - Grid
+  - cell
+  - enemy
+  - Touchable
+  - Bullet
+  - DamageOverTime
+  - SingleDamageTower
+  - DamageOverTimeTower
   layers:
   - Default
   - TransparentFX
@@ -15,7 +22,7 @@ TagManager:
   - UI
   - GridCell
   - DefenceObject
-  - 
+  - EnemyCharacters
   - 
   - 
   - 

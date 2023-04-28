@@ -7,34 +7,49 @@ public class Shoot : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform projectileSpawnPoint;
     public float fireRate = 1f;
-    public float projectileSpeed = 10f;
+    public float projectileSpeed = 20f;
     public TowerAiming towerAiming;
     private float timeSinceLastShot;
-    
+    public int damage = 5;
+
+    private Transform target;
+    private Bullet bullet;
     private void Update()
     {
         timeSinceLastShot += Time.deltaTime;
 
         if (towerAiming.Target != null && timeSinceLastShot >= 1f / fireRate)
         {
+            target = towerAiming.Target;
             ShootProjectile();
             timeSinceLastShot = 0f;
         }
     }
-    private void FireLaser(){
-
-    }
 
     private void ShootProjectile()
     {
-        GameObject projectileInstance = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+        Vector3 direction = (target.position - projectileSpawnPoint.position).normalized;
+        Vector3 directionYOnly = new Vector3(90, direction.y, 0);
+        Quaternion rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(directionYOnly);
+
+        GameObject projectileInstance = Instantiate(projectilePrefab, projectileSpawnPoint.position, rotation);
         Rigidbody projectileRigidbody = projectileInstance.GetComponent<Rigidbody>();
 
         if (projectileRigidbody != null)
         {
-            projectileRigidbody.velocity = projectileSpawnPoint.forward * projectileSpeed;
+            float distanceToTarget = Vector3.Distance(projectileSpawnPoint.position, target.position);
+            float timeToTarget = distanceToTarget / projectileSpeed;
+            Vector3 targetFuturePosition = target.position + target.GetComponent<Rigidbody>().velocity * timeToTarget;
+
+            projectileRigidbody.velocity = (targetFuturePosition - projectileSpawnPoint.position).normalized * projectileSpeed;
         }
 
         Destroy(projectileInstance, 5f);
     }
+
+    public void upgradeDamage(int increment)
+    {
+        damage += increment;
+    }
+
 }
