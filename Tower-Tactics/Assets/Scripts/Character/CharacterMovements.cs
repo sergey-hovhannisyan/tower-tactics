@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class CharacterMovements : MonoBehaviour
 {
@@ -9,34 +8,38 @@ public class CharacterMovements : MonoBehaviour
     private float movementThreshold = 0.01f;
     private float rotationSpeed = 720.0f;
 
-    public NavMeshAgent agent;
-    public Vector3 destination = new Vector3(20,0,0);
     private Rigidbody rb;
     private Vector3 movementInput;
     private Animator animator;
     private CapsuleCollider capsuleCollider;
     private Coroutine deathCoroutine;
-
     
-    public bool isMoving = true;
-    public bool isAttacking = false;
-    public bool isDead = false;
+    private bool isMoving;
+    private bool isAttacking;
+    private bool isDead;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
-        agent.SetDestination(destination);
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        if (agent.velocity.magnitude > 0.1f){
-            Quaternion targetRotation = Quaternion.LookRotation(agent.velocity.normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        movementInput = new Vector3(horizontalInput, 0, verticalInput);
+
+        // Temp
+        isDead = Input.GetKey(KeyCode.LeftControl);
+        isAttacking = Input.GetKey(KeyCode.Space) && !isDead;
+        isMoving = movementInput.magnitude > movementThreshold && !isAttacking && !isDead;
+        // Temp
+
+        if (isMoving) {
+            RotateTowardsMovementDirection();
         }
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isAttacking", isAttacking);
@@ -47,9 +50,21 @@ public class CharacterMovements : MonoBehaviour
             deathCoroutine = StartCoroutine(ChangeCapsuleColliderHeight(0.9f, 2.3f));
             StartCoroutine(DestroyAfterDelay(3.0f));
         }
-        if (Vector3.Distance(transform.position, destination) < 0.1f) {
-            Destroy(gameObject);
+    }
+
+    private void FixedUpdate()
+    {
+        if (rb != null && isMoving)
+        {
+            Vector3 movement = movementInput.normalized * speed * Time.fixedDeltaTime;
+            rb.MovePosition(rb.position + movement);
         }
+    }
+
+    private void RotateTowardsMovementDirection()
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(movementInput);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     private IEnumerator ChangeCapsuleColliderHeight(float targetHeight, float duration)
