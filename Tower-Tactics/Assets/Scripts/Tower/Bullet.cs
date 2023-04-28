@@ -7,11 +7,8 @@ public class Bullet : MonoBehaviour
     public int damage = 5;
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("cell")){
+        if (other.CompareTag("enemy")){
             Destroy(gameObject);
         }
-    }
-    public void upgradeDamage(int increment){
-        damage += increment;
     }
 }

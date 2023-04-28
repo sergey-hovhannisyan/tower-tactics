@@ -47,4 +47,9 @@ public class Shoot : MonoBehaviour
         Destroy(projectileInstance, 5f);
     }
 
+    public void upgradeDamage(int increment)
+    {
+        damage += increment;
+    }
+
 }

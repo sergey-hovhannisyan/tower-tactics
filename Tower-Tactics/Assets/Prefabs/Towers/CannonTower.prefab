@@ -933,7 +933,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4530836193926592310}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4530836194443362832}
+        m_TargetAssemblyTypeName: upgrade, Assembly-CSharp
+        m_MethodName: IncreaseDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4530836194390960731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,7 +1296,7 @@ GameObject:
   - component: {fileID: 8355873536429741000}
   m_Layer: 29
   m_Name: CannonTower
-  m_TagString: Touchable
+  m_TagString: SingleDamageTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1355,12 +1367,15 @@ MonoBehaviour:
   maxUpgrades: 5
   rangeIndicator: {fileID: 4530836192696996781}
   AOETower: {fileID: 0}
-  shoot: {fileID: 0}
+  damageOverTime: {fileID: 0}
+  shoot: {fileID: 4530836194443362833}
   towerAiming: {fileID: 4530836193968097662}
   upgradeCanvas: {fileID: 4530836192628680155}
   maxLvlCanvas: {fileID: 4530836194515948643}
   rangeIncreaseFactor: 1.25
   fireRateIncreaseFactor: 1.25
+  bulletDamageIncrease: 5
+  damageOverTimeIncrease: 1
 --- !u!114 &4530836194443362833
 MonoBehaviour:
   m_ObjectHideFlags: 0

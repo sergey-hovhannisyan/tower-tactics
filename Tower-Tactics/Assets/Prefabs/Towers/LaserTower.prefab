@@ -403,7 +403,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7259668483719993823}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7259668482710332017}
+        m_TargetAssemblyTypeName: upgrade, Assembly-CSharp
+        m_MethodName: IncreaseDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7259668483944600301
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,9 +463,10 @@ GameObject:
   - component: {fileID: 7259668482710332022}
   - component: {fileID: 7259668482710332017}
   - component: {fileID: 7259668482710332016}
+  - component: {fileID: 1574732205971571355}
   m_Layer: 0
   m_Name: LaserTower
-  m_TagString: Untagged
+  m_TagString: DamageOverTimeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -540,12 +553,15 @@ MonoBehaviour:
   maxUpgrades: 5
   rangeIndicator: {fileID: 7259668483983219509}
   AOETower: {fileID: 0}
+  damageOverTime: {fileID: 1574732205971571355}
   shoot: {fileID: 0}
   towerAiming: {fileID: 7259668482710332023}
   upgradeCanvas: {fileID: 7259668484140640590}
   maxLvlCanvas: {fileID: 7259668484314260947}
   rangeIncreaseFactor: 1.25
   fireRateIncreaseFactor: 1.25
+  bulletDamageIncrease: 5
+  damageOverTimeIncrease: 1
 --- !u!114 &7259668482710332016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +576,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasToToggle: {fileID: 7259668482992380269}
   rangeIndicator: {fileID: 7259668483983219509}
+--- !u!114 &1574732205971571355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7259668483944600303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9e2d35f9535b04d8a5ee242dce9330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dps: 1
 --- !u!1 &7259668483944600305
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class Laser : MonoBehaviour
     public TowerAiming towerAiming;
     private GameObject spawnedLaser;
     private LineRenderer lineRenderer;
-    public float dps = 1f;
+    public int dps = 1;
     // Start is called before the first frame update
     void Start()
     {

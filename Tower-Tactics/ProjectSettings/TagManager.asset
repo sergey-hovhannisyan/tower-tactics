@@ -11,6 +11,8 @@ TagManager:
   - Touchable
   - Bullet
   - DamageOverTime
+  - SingleDamageTower
+  - DamageOverTimeTower
   layers:
   - Default
   - TransparentFX
