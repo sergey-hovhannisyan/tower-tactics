@@ -43,12 +43,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-<<<<<<< HEAD
         //Only for testing purposes
         grid.CreateGrid();
-=======
-         grid.CreateGrid();
->>>>>>> main
     }
 
     private void Update()
