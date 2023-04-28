@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Cell
   - Grid
+  - cell
+  - enemy
+  - Touchable
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - UI
   - GridCell
   - DefenceObject
-  - 
+  - EnemyCharacters
   - 
   - 
   - 
