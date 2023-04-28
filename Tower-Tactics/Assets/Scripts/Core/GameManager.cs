@@ -65,14 +65,14 @@ public class GameManager : MonoBehaviour
         _inputManager.ResumeGame();
     }
 
-    private void Start()
-    {
-        //PauseGame();
-        grid.CreateGrid();
-        elapsedTime = 0f;
-        enemiesSpawnedInCurrentWave = 0;
-        StartCoroutine(SpawnEnemyRoutine());
-    }
+    // private void Start()
+    // {
+    //     //PauseGame();
+    //     grid.CreateGrid();
+    //     elapsedTime = 0f;
+    //     enemiesSpawnedInCurrentWave = 0;
+    //     StartCoroutine(SpawnEnemyRoutine());
+    // }
 
     public void CleanUp()
     {
