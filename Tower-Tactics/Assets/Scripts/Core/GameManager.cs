@@ -11,6 +11,13 @@ public class GameManager : MonoBehaviour
     public GameObject selectedObjectPrefab;
     public bool objectSelected = false;
     public Grid grid;
+    public GameObject enemyPrefab;
+    public Transform startpoint;
+    public float spawnEnemyInterval = 0.5f;
+    public float spawnWaveInterval = 10.0f;
+    public int spawnCount = 5;
+    private float elapsedTime;
+    private int enemiesSpawnedInCurrentWave;
     private InputManager _inputManager;
 
     #endregion
@@ -35,6 +42,9 @@ public class GameManager : MonoBehaviour
     {
         _inputManager.ResumeGame();
         grid.CreateGrid();
+        elapsedTime = 0f;
+        enemiesSpawnedInCurrentWave = 0;
+        StartCoroutine(SpawnEnemyRoutine());
     }
 
     public void QuitGame()
@@ -57,7 +67,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PauseGame();
+        //PauseGame();
+        grid.CreateGrid();
+        elapsedTime = 0f;
+        enemiesSpawnedInCurrentWave = 0;
+        StartCoroutine(SpawnEnemyRoutine());
     }
 
     public void CleanUp()
@@ -153,6 +167,31 @@ public class GameManager : MonoBehaviour
     {
         selectedObjectPrefab = null;
         objectSelected = false;
+    }
+    
+    #endregion
+
+    #region Object Selection Methods
+    // Spawns a wave of enemies
+    private IEnumerator SpawnEnemyRoutine(){
+        while (true){
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= spawnWaveInterval + (enemiesSpawnedInCurrentWave * spawnEnemyInterval)){
+                if (enemiesSpawnedInCurrentWave < spawnCount){
+                    SpawnEnemy();
+                    enemiesSpawnedInCurrentWave++;
+                }
+                else{
+                    elapsedTime = 0f;
+                    enemiesSpawnedInCurrentWave = 0;
+                }
+            }
+            yield return null;
+        }
+    }
+
+    private void SpawnEnemy(){
+        Instantiate(enemyPrefab, startpoint.position, startpoint.rotation);
     }
     
     #endregion
