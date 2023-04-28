@@ -1374,7 +1374,7 @@ MonoBehaviour:
   startpoint: {fileID: 1593184230}
   spawnEnemyInterval: 0.5
   spawnWaveInterval: 10
-  spawnCount: 6
+  spawnCount: 5
 --- !u!114 &1777629522
 MonoBehaviour:
   m_ObjectHideFlags: 0

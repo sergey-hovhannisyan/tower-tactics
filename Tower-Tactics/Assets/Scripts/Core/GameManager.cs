@@ -67,7 +67,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PauseGame();
+        //PauseGame();
+        grid.CreateGrid();
+        elapsedTime = 0f;
+        enemiesSpawnedInCurrentWave = 0;
+        StartCoroutine(SpawnEnemyRoutine());
     }
 
     public void CleanUp()
