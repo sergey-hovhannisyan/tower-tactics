@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6659117985981430154}
   - component: {fileID: 6955682477967840795}
   - component: {fileID: 2657264384694292058}
+  - component: {fileID: -6489364639748341055}
   m_Layer: 0
   m_Name: Rocket02_Blue
   m_TagString: Bullet
@@ -114,3 +115,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5586097, y: 11.237853, z: 2.5586104}
   m_Center: {x: -0.00000023841858, y: 1.0686617, z: -0.00000023841864}
+--- !u!114 &-6489364639748341055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645493714137300668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0937d801671414489e14421f9ae6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10

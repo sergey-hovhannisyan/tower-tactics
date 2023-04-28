@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class DamageOverTime : MonoBehaviour
 {
-    public int dps = 1;
+    public int dps = 5;
 }
