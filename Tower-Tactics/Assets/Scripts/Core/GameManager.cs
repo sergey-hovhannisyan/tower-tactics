@@ -5,12 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    #region Properties
 
+    #region Properties
+    private InputManager _inputManager;
+    private AudioManager _audioManager;
     private Camera mainCam;
-    public GameObject selectedObjectPrefab;
-    public bool objectSelected = false;
     public Grid grid;
+    public bool isPaused = false;
+
+    #region Selectables Properties
+    private GameObject _selectedObjectPrefab;
+    public bool _objectSelected = false;
+    public bool _clearSelected = false;
+    #endregion
+
+    #region  Enmey Properties
     public GameObject enemyPrefab;
     public Transform startpoint;
     public float spawnEnemyInterval = 0.5f;
@@ -18,12 +27,11 @@ public class GameManager : MonoBehaviour
     public int spawnCount = 5;
     private float elapsedTime;
     private int enemiesSpawnedInCurrentWave;
-    private InputManager _inputManager;
+    #endregion
 
     #endregion
 
     #region Control Properties
-
     private void Awake() 
     {
         if (FindObjectsOfType<GameManager>().Length > 1)
@@ -34,14 +42,17 @@ public class GameManager : MonoBehaviour
         {
             mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             _inputManager = gameObject.GetComponent<InputManager>();
+            _audioManager = gameObject.GetComponent<AudioManager>();
+            grid.CreateGrid();
+            PauseGame();
             DontDestroyOnLoad(gameObject);
         }
     }
 
     public void StartGame()
     {
-        _inputManager.ResumeGame();
-        grid.CreateGrid();
+        _audioManager.PlayGameBackgroundMusic();
+        isPaused = false;
         elapsedTime = 0f;
         enemiesSpawnedInCurrentWave = 0;
         StartCoroutine(SpawnEnemyRoutine());
@@ -54,66 +65,48 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        _audioManager.PlayMenuBackgroundMusic();
+        isPaused = true;
         Time.timeScale = 0;
-        _inputManager.PauseGame();
-        DeselectObject();
+        DeselectPlaceable();
     }
 
     public void ResumeGame()
     {
+        isPaused = false;
         Time.timeScale = 1;
-        _inputManager.ResumeGame();
     }
 
-    private void Start()
-    {
-        //PauseGame();
-        grid.CreateGrid();
-        elapsedTime = 0f;
-        enemiesSpawnedInCurrentWave = 0;
-        StartCoroutine(SpawnEnemyRoutine());
-    }
+    // private void Start()
+    // {
+    //     //PauseGame();
+    //     grid.CreateGrid();
+    //     elapsedTime = 0f;
+    //     enemiesSpawnedInCurrentWave = 0;
+    //     StartCoroutine(SpawnEnemyRoutine());
+    // }
 
-    public void CleanUp()
-    {
-        grid.ClearGrid();
-    }
 
-    private void Update()
-    {
-        
-    }
 
     #endregion
     
     #region Private: GridCell Methods
 
-    // Gets the cell that the player is touching
-    private GridCell GetCellFromTouch(Touch touch)
-    {
-        Ray ray = mainCam.ScreenPointToRay(touch.position);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, LayerMask.GetMask("GridCell")))
-        {
-            return raycastHit.collider.GetComponent<GridCell>();
-        }
-        return null;
-    }
-
     // Drops a tower into a cell
-    private void DropInCell(GridCell cell)
+    private void PlaceOjbectInCell(GridCell cell)
     {
-        if (selectedObjectPrefab && !cell.isOccupied    )
+        if (_selectedObjectPrefab && !cell.isOccupied)
         {
-            GameObject newTower = Instantiate(selectedObjectPrefab, cell.transform.position, Quaternion.identity);
+            GameObject newTower = Instantiate(_selectedObjectPrefab, cell.transform.position, Quaternion.identity);
             cell.objectInThisGridSpace = newTower;
             cell.isOccupied = true;
         }
     }
     
     // Removes a object from a cell
-    public void RemoveFromCell(GridCell cell)
+    private void RemoveObjectFromCell(GridCell cell)
     {
-        if (cell.objectInThisGridSpace)
+        if (cell.isOccupied)
         {
             Destroy(cell.objectInThisGridSpace);
             cell.objectInThisGridSpace = null;
@@ -124,21 +117,24 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public: GridCell Interface Methods
-    public void InsertObjectIntoCell(Touch touch)
+
+    public void ControlGridInput(Touch touch)
     {
-        GridCell cellTouchIsOver = GetCellFromTouch(touch);
-        if (cellTouchIsOver && objectSelected)
-            DropInCell(cellTouchIsOver);
+        Ray ray = mainCam.ScreenPointToRay(touch.position);
+        RaycastHit raycastHit;
+        if (Physics.Raycast(ray, out raycastHit, Mathf.Infinity, LayerMask.GetMask("GridCell")))
+        {
+            GridCell cell = raycastHit.collider.GetComponent<GridCell>();
+            if (_clearSelected)
+                RemoveObjectFromCell(cell);
+            else if(_objectSelected)
+                PlaceOjbectInCell(cell);
+        }
+        else
+           DeselectEverything();
     }
 
-    public void RemoveObjectFromCell(Touch touch)
-    {
-        GridCell cellTouchIsOver = GetCellFromTouch(touch);
-        if (cellTouchIsOver != null)
-            RemoveFromCell(cellTouchIsOver);
-    }
-
-    public void ClearGrid() 
+    public void ClearField()
     {
         grid.ClearGrid();
     }
@@ -149,29 +145,42 @@ public class GameManager : MonoBehaviour
     // Selects a tower from the UI
     public void SelectSwitch(GameObject objectPrefab)
     {
-        if (objectSelected && objectPrefab == selectedObjectPrefab)
-            DeselectObject();
-        else
-            SelectObject(objectPrefab);
+        if (_objectSelected && objectPrefab == _selectedObjectPrefab) DeselectPlaceable();
+        else SelectPlaceable(objectPrefab);
+    }
+
+    // Selects the clear button from the UI
+    public void SelectSwitchClearButton()
+    {
+        DeselectPlaceable();
+        _clearSelected = !_clearSelected;
     }
 
     // Selects a tower from the UI
-    private void SelectObject(GameObject objectPrefab)
+    private void SelectPlaceable(GameObject objectPrefab)
     {
-        selectedObjectPrefab = objectPrefab;
-        objectSelected = true;
+        _clearSelected = false;
+        _selectedObjectPrefab = objectPrefab;
+        _objectSelected = true;
     }
 
     // De-selects a tower from the UI
-    private void DeselectObject()
+    private void DeselectPlaceable()
     {
-        selectedObjectPrefab = null;
-        objectSelected = false;
+        _selectedObjectPrefab = null;
+        _objectSelected = false;
+    }
+
+    // De-selects everything
+    private void DeselectEverything()
+    {
+        DeselectPlaceable();
+        _clearSelected = false;
     }
     
     #endregion
 
-    #region Object Selection Methods
+    #region Waves Control Methods
     // Spawns a wave of enemies
     private IEnumerator SpawnEnemyRoutine(){
         while (true){

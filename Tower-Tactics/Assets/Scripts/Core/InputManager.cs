@@ -6,7 +6,6 @@ public class InputManager : MonoBehaviour
 {
     // This script is used to handle all input from the player
     GameManager _gameManager;
-    private bool _isPaused = false;
 
     void Start()
     {
@@ -15,27 +14,15 @@ public class InputManager : MonoBehaviour
     
     void Update()
     {
-        if (_isPaused) return;
+        if (_gameManager.isPaused) return;
         if (Input.touchCount > 0) 
         {
             Touch touch = Input.GetTouch(0);
-            // If the player clicks on the screen, insert the object into the cell
+            // If the finger is on the screen and moving or stationary: Call the ControlGridInput method in GameManager
             if (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) 
             {
-                _gameManager.InsertObjectIntoCell(touch);
+                _gameManager.ControlGridInput(touch);
             }
         }
-    }
-
-    public void PauseGame()
-    {
-        _isPaused = true;
-        Time.timeScale = 0;
-    }
-
-    public void ResumeGame()
-    {
-        _isPaused = false;
-        Time.timeScale = 1;
     }
 }
