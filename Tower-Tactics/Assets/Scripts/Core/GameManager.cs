@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform startpoint;
     public float spawnEnemyInterval = 0.5f;
-    public float spawnWaveInterval = 10.0f;
+    public float spawnWaveInterval = 1.0f;
     public int spawnCount = 5;
     private float elapsedTime;
     private int enemiesSpawnedInCurrentWave;
@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        ResumeGame();
         _audioManager.PlayGameBackgroundMusic();
         isPaused = false;
         elapsedTime = 0f;
@@ -200,7 +201,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void SpawnEnemy(){
-        Instantiate(enemyPrefab, startpoint.position, startpoint.rotation);
+        Instantiate(enemyPrefab, startpoint.position, Quaternion.identity);
     }
     
     #endregion
