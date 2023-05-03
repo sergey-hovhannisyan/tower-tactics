@@ -10,14 +10,11 @@ public class ItemInfo : MonoBehaviour
     public GameObject purchasedButton;
     public GameObject backgroundImage;
     public int itemID;
-    public string itemName;
-    public TMP_Text name;
     public TMP_Text priceTxt;
     public GameObject ShopManager;
     
     void Update()
     {
-        name.text = itemName;
         priceTxt.text = ShopManager.GetComponent<ShopManager>().shopItems[1, itemID].ToString();
     }
 
