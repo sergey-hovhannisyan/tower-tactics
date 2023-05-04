@@ -27,7 +27,6 @@ public class ItemCard : MonoBehaviour
     {
         _shopManager = FindObjectOfType<ShopManager>();
         _item = _shopManager.InstantiateItem(itemPrefab);
-        Debug.Log("Instantiated item " + _item.name + " with ID " + _item.itemID);
         itemImage.sprite = _item.image;
         priceTxt.text = _item.price.ToString();
         nameTxt.text = _item.name;
