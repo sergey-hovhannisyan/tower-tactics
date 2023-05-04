@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     #region Properties
     private InputManager _inputManager;
     private AudioManager _audioManager;
+    private ShopManager _shopManager;
     private Camera mainCam;
     public Grid grid;
     public bool isPaused = false;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
             mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             _inputManager = gameObject.GetComponent<InputManager>();
             _audioManager = gameObject.GetComponent<AudioManager>();
+            _shopManager = gameObject.GetComponent<ShopManager>();
             grid.CreateGrid();
             PauseGame();
             DontDestroyOnLoad(gameObject);
@@ -54,9 +56,10 @@ public class GameManager : MonoBehaviour
         ResumeGame();
         _audioManager.PlayGameBackgroundMusic();
         isPaused = false;
-        // elapsedTime = 0f;
-        // enemiesSpawnedInCurrentWave = 0;
-        // StartCoroutine(SpawnEnemyRoutine());
+        elapsedTime = 0f;
+        enemiesSpawnedInCurrentWave = 0;
+        StartCoroutine(SpawnEnemyRoutine());
+        _shopManager.RenderSelectedItems();
     }
 
     public void QuitGame()
@@ -144,10 +147,15 @@ public class GameManager : MonoBehaviour
 
     #region Object Selection Methods
     // Selects a tower from the UI
-    public void SelectSwitch(GameObject objectPrefab)
+    private void SelectSwitch(GameObject objectPrefab)
     {
         if (_objectSelected && objectPrefab == _selectedObjectPrefab) DeselectPlaceable();
         else SelectPlaceable(objectPrefab);
+    }
+
+    public void SelectItemNumber(int itemNumber)
+    {
+        SelectSwitch(_shopManager.GetSelectedItemPrefab(itemNumber));
     }
 
     // Selects the clear button from the UI

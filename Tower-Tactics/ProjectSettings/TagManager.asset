@@ -13,6 +13,9 @@ TagManager:
   - DamageOverTime
   - SingleDamageTower
   - DamageOverTimeTower
+  - Event
+  - Core
+  - InfoTab
   layers:
   - Default
   - TransparentFX
@@ -52,4 +55,7 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 20550241
+    locked: 0
+  - name: FrontView
+    uniqueID: 3967782361
     locked: 0
