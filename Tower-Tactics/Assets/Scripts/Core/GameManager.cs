@@ -51,25 +51,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        // ResumeGame();
-        // _audioManager.PlayGameBackgroundMusic();
-        // isPaused = false;
-        // elapsedTime = 0f;
-        // //enemiesSpawnedInCurrentWave = 0;
-        // //StartCoroutine(SpawnEnemyRoutine());
-        // _shopManager.RenderSelectedItems();
-    }
-
     public void StartGame()
     {
         ResumeGame();
         _audioManager.PlayGameBackgroundMusic();
         isPaused = false;
         elapsedTime = 0f;
-        // enemiesSpawnedInCurrentWave = 0;
-        // StartCoroutine(SpawnEnemyRoutine());
+        enemiesSpawnedInCurrentWave = 0;
+        StartCoroutine(SpawnEnemyRoutine());
         _shopManager.RenderSelectedItems();
     }
 

@@ -67,6 +67,7 @@ public class ItemCard : MonoBehaviour
         price.SetActive(true);
         gemsIcon.SetActive(true);
         selectedCheckMarkButton.SetActive(false);
+        _shopManager.DeselectItem(_item);
     }
 
     public void RenderItemInfo()

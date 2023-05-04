@@ -12,7 +12,7 @@ public class ShopManager : MonoBehaviour
     private static int _newItemID = 0;
     private int _numberOfSelected = 0;
     public int maxNumberOfSelected = 4;
-    [SerializeField] Image[] _selectedItemsImages;
+    [SerializeField] GameObject[] _selectedItemsObjects;
     private Item[] _selectedItems;
 
     public int gems;
@@ -77,10 +77,15 @@ public class ShopManager : MonoBehaviour
 
     public void RenderSelectedItems()
     {
-        for (int i = 0; i < _numberOfSelected; i++)
+        for (int i = 0; i < maxNumberOfSelected; i++)
         {
-            Debug.Log("Rendering selected item " + _selectedItems[i].name + " with ID " + _selectedItems[i].itemID);
-            _selectedItems[i].Render(_selectedItemsImages[i]);
+            if (_selectedItemsObjects[i].GetComponent<Image>() != null && _selectedItems[i])
+            {
+                _selectedItemsObjects[i].SetActive(true);
+                _selectedItems[i].Render(_selectedItemsObjects[i].GetComponent<Image>());
+            }
+            else 
+                _selectedItemsObjects[i].SetActive(false);
         }
     }
 }
