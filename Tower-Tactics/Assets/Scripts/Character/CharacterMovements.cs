@@ -10,7 +10,7 @@ public class CharacterMovements : MonoBehaviour
     private float rotationSpeed = 720.0f;
 
     public NavMeshAgent agent;
-    public Vector3 destination = new Vector3(20,0,0);
+    public Transform endpoint;
     private Rigidbody rb;
     private Vector3 movementInput;
     private Animator animator;
@@ -32,7 +32,7 @@ public class CharacterMovements : MonoBehaviour
 
     private void Update()
     {
-        agent.SetDestination(destination);
+        agent.SetDestination(endpoint.position);
 
         if (agent.velocity.magnitude > 0.1f){
             Quaternion targetRotation = Quaternion.LookRotation(agent.velocity.normalized);
@@ -48,7 +48,7 @@ public class CharacterMovements : MonoBehaviour
             StartCoroutine(DestroyAfterDelay(3.0f));
         }
 
-        if (Vector3.Distance(transform.position, destination) < 0.3f){
+        if (Vector3.Distance(transform.position, endpoint.position) < 0.5f){
             Destroy(gameObject);
         }
     }

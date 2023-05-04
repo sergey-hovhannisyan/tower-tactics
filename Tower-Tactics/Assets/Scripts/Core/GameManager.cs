@@ -20,15 +20,15 @@ public class GameManager : MonoBehaviour
     public bool _clearSelected = false;
     #endregion
 
-    #region  Enmey Properties
-    public GameObject enemyPrefab;
-    public Transform startpoint;
-    public float spawnEnemyInterval = 0.5f;
-    public float spawnWaveInterval = 1.0f;
-    public int spawnCount = 5;
-    private float elapsedTime;
-    private int enemiesSpawnedInCurrentWave;
-    #endregion
+    // #region  Enmey Properties
+    // public GameObject enemyPrefab;
+    // public Transform startpoint;
+    // public float spawnEnemyInterval = 0.5f;
+    // public float spawnWaveInterval = 1.0f;
+    // public int spawnCount = 5;
+    // private float elapsedTime;
+    // private int enemiesSpawnedInCurrentWave;
+    // #endregion
 
     #endregion
 
@@ -189,28 +189,28 @@ public class GameManager : MonoBehaviour
     
     #endregion
 
-    #region Waves Control Methods
-    // Spawns a wave of enemies
-    private IEnumerator SpawnEnemyRoutine(){
-        while (true){
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= spawnWaveInterval + (enemiesSpawnedInCurrentWave * spawnEnemyInterval)){
-                if (enemiesSpawnedInCurrentWave < spawnCount){
-                    SpawnEnemy();
-                    enemiesSpawnedInCurrentWave++;
-                }
-                else{
-                    elapsedTime = 0f;
-                    enemiesSpawnedInCurrentWave = 0;
-                }
-            }
-            yield return null;
-        }
-    }
+    // #region Waves Control Methods
+    // // Spawns a wave of enemies
+    // private IEnumerator SpawnEnemyRoutine(){
+    //     while (true){
+    //         elapsedTime += Time.deltaTime;
+    //         if (elapsedTime >= spawnWaveInterval + (enemiesSpawnedInCurrentWave * spawnEnemyInterval)){
+    //             if (enemiesSpawnedInCurrentWave < spawnCount){
+    //                 SpawnEnemy();
+    //                 enemiesSpawnedInCurrentWave++;
+    //             }
+    //             else{
+    //                 elapsedTime = 0f;
+    //                 enemiesSpawnedInCurrentWave = 0;
+    //             }
+    //         }
+    //         yield return null;
+    //     }
+    // }
 
-    private void SpawnEnemy(){
-        Instantiate(enemyPrefab, startpoint.position, Quaternion.identity);
-    }
+    // private void SpawnEnemy(){
+    //     Instantiate(enemyPrefab, startpoint.position, Quaternion.identity);
+    // }
     
-    #endregion
+    // #endregion
 }

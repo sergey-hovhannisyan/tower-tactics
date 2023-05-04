@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1634,6 +1634,7 @@ GameObject:
   - component: {fileID: 8154573695053373095}
   - component: {fileID: 8154573695053373096}
   - component: {fileID: 8154573695053373097}
+  - component: {fileID: 8154573695053373098}
   m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
@@ -3217,7 +3218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070054843}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.04, y: 0, z: 0.18}
+  m_LocalPosition: {x: -20.92, y: 0, z: 0.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5226,6 +5227,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989380843}
   m_CullTransparentMesh: 1
+--- !u!1 &2045175285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2045175286}
+  m_Layer: 0
+  m_Name: EndPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2045175286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045175285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 19.63, y: 0, z: 0.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069282366
 GameObject:
   m_ObjectHideFlags: 0
@@ -5351,8 +5383,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446948541445824901}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 3}
+  m_LocalPosition: {x: -0.7435, y: 0, z: -1.9624}
+  m_LocalScale: {x: 4.23294, y: 1, z: 1.5446869}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8154573695053373094}
@@ -6993,11 +7025,6 @@ MonoBehaviour:
   isPaused: 0
   _objectSelected: 0
   _clearSelected: 0
-  enemyPrefab: {fileID: 2977577819232278436, guid: 6f2dc78eb3e5a0043b1eadb7ae8c6787, type: 3}
-  startpoint: {fileID: 1070054844}
-  spawnEnemyInterval: 0.5
-  spawnWaveInterval: 10
-  spawnCount: 5
 --- !u!4 &8154573695053373094
 Transform:
   m_ObjectHideFlags: 0
@@ -7141,3 +7168,59 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: bc61f113d172bd242b00b0bdce1c2669, type: 3}
   - clipName: Game Background Music
     audioClip: {fileID: 8300000, guid: 60618ca34846ea142b885f4e888e1049, type: 3}
+--- !u!114 &8154573695053373098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640243808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537664745411cf74e84f6bd5f8f55664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 2977577819232278436, guid: 6f2dc78eb3e5a0043b1eadb7ae8c6787, type: 3}
+  fastPrefab: {fileID: 2977577819232278436, guid: 20ee3848c67a1ad48b95f76dd8be71bb, type: 3}
+  heavyPrefab: {fileID: 2977577819232278436, guid: 069315eb0b7e7ca4bbd36964347f6047, type: 3}
+  startpoint: {fileID: 1070054844}
+  endpoint: {fileID: 2045175286}
+  spawnEnemyInterval: 0.5
+  spawnWaveInterval: 15
+  waves:
+  - enemyCount: 5
+    fastCount: 0
+    heavyCount: 0
+    enemySpawned: 0
+    fastSpawned: 0
+    heavySpawned: 0
+  - enemyCount: 10
+    fastCount: 0
+    heavyCount: 0
+    enemySpawned: 0
+    fastSpawned: 0
+    heavySpawned: 0
+  - enemyCount: 5
+    fastCount: 5
+    heavyCount: 0
+    enemySpawned: 0
+    fastSpawned: 0
+    heavySpawned: 0
+  - enemyCount: 10
+    fastCount: 10
+    heavyCount: 0
+    enemySpawned: 0
+    fastSpawned: 0
+    heavySpawned: 0
+  - enemyCount: 5
+    fastCount: 5
+    heavyCount: 1
+    enemySpawned: 0
+    fastSpawned: 0
+    heavySpawned: 0
+  - enemyCount: 5
+    fastCount: 5
+    heavyCount: 5
+    enemySpawned: 0
+    fastSpawned: 0
+    heavySpawned: 0
