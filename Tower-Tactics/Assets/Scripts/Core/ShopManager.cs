@@ -11,6 +11,7 @@ public class ShopManager : MonoBehaviour
     private static int numberOfItems = 6;
     public int[,] shopItems = new int[itemInfoDepth, numberOfItems];
     public bool[] unlockedItems = new bool[numberOfItems];
+    public Sprte[] itemImages = new Sprite[numberOfItems];
     public int gems;
     public TMP_Text gemsTxt;
 
