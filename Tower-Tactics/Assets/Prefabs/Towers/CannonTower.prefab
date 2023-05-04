@@ -1294,6 +1294,7 @@ GameObject:
   - component: {fileID: 4530836194443362832}
   - component: {fileID: 4530836194443362833}
   - component: {fileID: 8355873536429741000}
+  - component: {fileID: 5975974082941016423}
   m_Layer: 29
   m_Name: CannonTower
   m_TagString: SingleDamageTower
@@ -1408,6 +1409,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasToToggle: {fileID: 4530836193851688484}
   rangeIndicator: {fileID: 4530836192696996781}
+--- !u!208 &5975974082941016423
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530836194441112087}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.15, y: 0.15, z: 0.15}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4530836194441112089
 GameObject:
   m_ObjectHideFlags: 0

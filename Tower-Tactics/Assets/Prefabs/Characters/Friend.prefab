@@ -148,7 +148,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2977577819232278436}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1.8
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2859084122159764931}
-  destination: {x: 20, y: 0, z: 0}
+  endpoint: {fileID: 0}
   isMoving: 1
   isAttacking: 0
   isDead: 0
