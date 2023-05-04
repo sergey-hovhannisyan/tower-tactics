@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
@@ -45,5 +46,10 @@ public class Item : MonoBehaviour
     public static int numberOfItems
     {
         get { return _numberOfItems; }
+    }
+
+    public void Render(Image image)
+    {
+        image.sprite = this.image;
     }
 }

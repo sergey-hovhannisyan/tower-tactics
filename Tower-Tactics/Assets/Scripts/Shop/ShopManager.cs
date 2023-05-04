@@ -8,9 +8,12 @@ using System;
 
 public class ShopManager : MonoBehaviour
 {
-    public static int totalNumberOfItems = 6;
+    public static int maxNumberOfItems = 6;
     private static int _newItemID = 0;
-    private Item[] _shopItems = new Item[totalNumberOfItems];
+    private int _numberOfSelected = 0;
+    public int maxNumberOfSelected = 4;
+    [SerializeField] Image[] _selectedItemsImages;
+    private Item[] _selectedItems;
 
     public int gems;
     public TMP_Text gemsTxt;
@@ -18,21 +21,20 @@ public class ShopManager : MonoBehaviour
     void Start()
     {
         gemsTxt.text = gems.ToString();
+
+        _selectedItems = new Item[maxNumberOfSelected];
     }
 
     public Item InstantiateItem(GameObject itemPrefab)
     {
-        if (_newItemID >= totalNumberOfItems)
-            throw new System.Exception("Too many items in the shop! Increase totalNumberOfItems in ShopManager.cs");
+        if (_newItemID >= maxNumberOfItems)
+            throw new System.Exception("Too many items in the shop! Increase maxNumberOfItems in ShopManager.cs");
         Item item = Instantiate(itemPrefab, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<Item>();
         item.itemID = _newItemID++;
-        Debug.Log("Instantiated item with ID: " + item.itemID);
-        //_shopItems[item.itemID] = item; 
         return item;
     }
 
-
-    public bool Buy(Item item)
+    public bool Unlock(Item item)
     {
         if (gems >= item.price)
         {
@@ -44,8 +46,41 @@ public class ShopManager : MonoBehaviour
         return false;
     }
 
-    public Item[] shopItems
+    public void SelectItem(Item item)
     {
-        get { return _shopItems; }
+        if (item.unlocked)
+            _selectedItems[_numberOfSelected++] = item;
+    }
+
+    public void DeselectItem(Item item)
+    {
+        if (item.unlocked)
+        {
+            for (int i = 0; i < _numberOfSelected; i++)
+            {
+                if (_selectedItems[i] == item)
+                {
+                    _selectedItems[i] = null;
+                    _numberOfSelected--;
+                    break;
+                }
+            }
+        }
+    }
+
+    public GameObject GetSelectedItemPrefab(int index)
+    {
+        if (index >= 0 && index < _numberOfSelected)
+            return _selectedItems[index].prefab;
+        return null;
+    }
+
+    public void RenderSelectedItems()
+    {
+        for (int i = 0; i < _numberOfSelected; i++)
+        {
+            Debug.Log("Rendering selected item " + _selectedItems[i].name + " with ID " + _selectedItems[i].itemID);
+            _selectedItems[i].Render(_selectedItemsImages[i]);
+        }
     }
 }
