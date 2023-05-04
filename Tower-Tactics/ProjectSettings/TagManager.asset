@@ -14,6 +14,8 @@ TagManager:
   - SingleDamageTower
   - DamageOverTimeTower
   - Event
+  - Core
+  - InfoTab
   layers:
   - Default
   - TransparentFX
