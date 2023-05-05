@@ -9,7 +9,7 @@ using System;
 public class ShopManager : MonoBehaviour
 {
     private AudioManager _audioManager;
-    public static int maxNumberOfItems = 6;
+    public static int maxNumberOfItems = 7;
     private static int _newItemID = 0;
     private int _numberOfSelected = 0;
     public int maxNumberOfSelected = 4;
