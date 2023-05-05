@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   livesCost: 1
+  money: 5
   agent: {fileID: 37999278876701327}
   endpoint: {fileID: 0}
   isMoving: 1
@@ -209,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0199e96cfb8fa4ba5f1d91a62d133e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalHealth: 10
+  totalHealth: 30
   currentHealth: 0
 --- !u!82 &6595274708697701318
 AudioSource:
