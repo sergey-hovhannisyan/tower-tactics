@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private InputManager _inputManager;
     private AudioManager _audioManager;
     private ShopManager _shopManager;
+    private WaveManager _waveManager;
     private Camera mainCam;
     public Grid grid;
     public bool isPaused = false;
@@ -26,17 +27,20 @@ public class GameManager : MonoBehaviour
     public GameObject shopCanvas;
     public GameObject gameCanvas;
     public GameObject menuCanvas;
+    public GameObject loseCanvas;
+    public GameObject winCanvas;
+    public GameObject levelCompleteCanvas;
     public GameObject homeErrorMessage;
     #endregion
 
     // #region  Enmey Properties
-    public GameObject enemyPrefab;
-    public Transform startpoint;
-    public float spawnEnemyInterval = 0.5f;
-    public float spawnWaveInterval = 1.0f;
-    public int spawnCount = 5;
-    private float elapsedTime;
-    private int enemiesSpawnedInCurrentWave;
+    // public GameObject enemyPrefab;
+    // public Transform startpoint;
+    // public float spawnEnemyInterval = 0.5f;
+    // public float spawnWaveInterval = 1.0f;
+    // public int spawnCount = 5;
+    // private float elapsedTime;
+    // private int enemiesSpawnedInCurrentWave;
     // #endregion
 
     #endregion
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
         else
         {
             mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            _waveManager = gameObject.GetComponent<WaveManager>();
             _inputManager = gameObject.GetComponent<InputManager>();
             _audioManager = gameObject.GetComponent<AudioManager>();
             _shopManager = gameObject.GetComponent<ShopManager>();
@@ -62,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        _waveManager.level = 0;
         if (_shopManager.GetNumberOfSelectedItems() == 0) { 
             homeErrorMessage.SetActive(true);
             return;}
@@ -215,39 +221,64 @@ public class GameManager : MonoBehaviour
     
     #endregion
 
-    #region Lives Control
+    #region Level Control
 
     public void subtractlives(int livesCost) {
         lives -= livesCost;
         if(lives < 0) {
             lives = 0;
+            _audioManager.PlayMenuBackgroundMusic();
+            isPaused = true;
+            Time.timeScale = 0;
+            DeselectPlaceable();
+            gameCanvas.SetActive(false);
+            loseCanvas.SetActive(true);
         }
     }
+
+    public void levelComplete(){
+        _audioManager.PlayMenuBackgroundMusic();
+        isPaused = true;
+        Time.timeScale = 0;
+        DeselectPlaceable();
+        gameCanvas.SetActive(false);
+        levelCompleteCanvas.SetActive(true);
+    }
+
+    public void win(){
+        _audioManager.PlayMenuBackgroundMusic();
+        isPaused = true;
+        Time.timeScale = 0;
+        DeselectPlaceable();
+        gameCanvas.SetActive(false);
+        winCanvas.SetActive(true);
+    }
+
 
     #endregion
 
     // #region Waves Control Methods
     // // Spawns a wave of enemies
-    private IEnumerator SpawnEnemyRoutine(){
-        while (true){
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= spawnWaveInterval + (enemiesSpawnedInCurrentWave * spawnEnemyInterval)){
-                if (enemiesSpawnedInCurrentWave < spawnCount){
-                    SpawnEnemy();
-                    enemiesSpawnedInCurrentWave++;
-                }
-                else{
-                    elapsedTime = 0f;
-                    enemiesSpawnedInCurrentWave = 0;
-                }
-            }
-            yield return null;
-        }
-    }
+    // private IEnumerator SpawnEnemyRoutine(){
+    //     while (true){
+    //         elapsedTime += Time.deltaTime;
+    //         if (elapsedTime >= spawnWaveInterval + (enemiesSpawnedInCurrentWave * spawnEnemyInterval)){
+    //             if (enemiesSpawnedInCurrentWave < spawnCount){
+    //                 SpawnEnemy();
+    //                 enemiesSpawnedInCurrentWave++;
+    //             }
+    //             else{
+    //                 elapsedTime = 0f;
+    //                 enemiesSpawnedInCurrentWave = 0;
+    //             }
+    //         }
+    //         yield return null;
+    //     }
+    // }
 
-    private void SpawnEnemy(){
-        Instantiate(enemyPrefab, startpoint.position, Quaternion.identity);
-    }
+    // private void SpawnEnemy(){
+    //     Instantiate(enemyPrefab, startpoint.position, Quaternion.identity);
+    // }
     
     // #endregion
 
