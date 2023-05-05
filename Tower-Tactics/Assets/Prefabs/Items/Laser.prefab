@@ -47,5 +47,6 @@ MonoBehaviour:
   name: Laser
   description: 
   price: 100
+  placeablePrice: 100
   image: {fileID: 21300000, guid: 52006896c82444c4891fae075922f923, type: 3}
   prefab: {fileID: 7259668483944600303, guid: ae5fe4bfb82414c47bb4b12878d134da, type: 3}

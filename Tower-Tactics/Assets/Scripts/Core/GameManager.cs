@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     #region Selectables Properties
     private GameObject _selectedObjectPrefab;
+    private int _itemNumber;
     public bool _objectSelected = false;
     public bool _clearSelected = false;
     #endregion
@@ -54,12 +55,11 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         ResumeGame();
-        _audioManager.PlayGameBackgroundMusic();
-        isPaused = false;
-        elapsedTime = 0f;
-        enemiesSpawnedInCurrentWave = 0;
-        StartCoroutine(SpawnEnemyRoutine());
+        //elapsedTime = 0f;
+        //enemiesSpawnedInCurrentWave = 0;
+        //StartCoroutine(SpawnEnemyRoutine());
         _shopManager.RenderSelectedItems();
+        _shopManager.StartGame();
     }
 
     public void QuitGame()
@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        _audioManager.PlayGameBackgroundMusic();
         isPaused = false;
         Time.timeScale = 1;
     }
@@ -101,9 +102,14 @@ public class GameManager : MonoBehaviour
     {
         if (_selectedObjectPrefab && !cell.isOccupied)
         {
+            if (!_shopManager.CanAffordItem(_itemNumber)) { 
+                _audioManager.PlayErrorSound();
+                return;}
+            _shopManager.PurchasePlaceableItem(_itemNumber);
             GameObject newTower = Instantiate(_selectedObjectPrefab, cell.transform.position, Quaternion.identity);
             cell.objectInThisGridSpace = newTower;
             cell.isOccupied = true;
+            cell.itemID = _itemNumber;
         }
     }
     
@@ -112,6 +118,7 @@ public class GameManager : MonoBehaviour
     {
         if (cell.isOccupied)
         {
+            _shopManager.RefundPlaceableItem(cell.itemID);
             Destroy(cell.objectInThisGridSpace);
             cell.objectInThisGridSpace = null;
             cell.isOccupied = false;
@@ -131,7 +138,7 @@ public class GameManager : MonoBehaviour
             GridCell cell = raycastHit.collider.GetComponent<GridCell>();
             if (_clearSelected)
                 RemoveObjectFromCell(cell);
-            else if(_objectSelected)
+            if(_objectSelected)
                 PlaceOjbectInCell(cell);
         }
         else
@@ -155,6 +162,7 @@ public class GameManager : MonoBehaviour
 
     public void SelectItemNumber(int itemNumber)
     {
+        _itemNumber = itemNumber;
         SelectSwitch(_shopManager.GetSelectedItemPrefab(itemNumber));
     }
 

@@ -12,6 +12,8 @@ public class GridCell : MonoBehaviour
 
     // Saves if the grid space is occupied or not
     public bool isOccupied = false;
+
+    public int itemID;
     
     // Set grid cell positions
     public void SetPosition(int x, int y)
