@@ -94,19 +94,21 @@ public class CharacterMovements : MonoBehaviour
             StartCoroutine(DestroyAfterDelay(3.0f));
         }
 
-        // //makes the charater stop if no path found
-        // if(IsAgentOnNavMesh()){
-        //     if (agent.pathStatus == NavMeshPathStatus.PathPartial || agent.pathStatus == NavMeshPathStatus.PathInvalid){
-        //         agent.isStopped = true;
-        //         isMoving = false;
-        //         isAttacking = true;
-        //     }
-        //     else{
-        //         agent.isStopped = false;
-        //         isMoving = true;
-        //         isAttacking = false;
-        //     }
-        // }
+        //makes the charater stop if no path found
+        if(IsAgentOnNavMesh()){
+            if (agent.pathStatus == NavMeshPathStatus.PathPartial || agent.pathStatus == NavMeshPathStatus.PathInvalid){
+                agent.isStopped = true;
+                isMoving = false;
+                isAttacking = true;
+                gameManager.pathIsClear = false;
+            }
+            else{
+                gameManager.pathIsClear = true;
+                agent.isStopped = false;
+                isMoving = true;
+                isAttacking = false;
+            }
+        }
     }
 
     private IEnumerator ChangeCapsuleColliderHeight(float targetHeight, float duration)
@@ -129,6 +131,7 @@ public class CharacterMovements : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
+        //_waveManager.DestroyEenmy(gameObject);
     }
 
     private bool IsAgentOnNavMesh()

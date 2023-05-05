@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public int lives = 20;
     public TextMeshProUGUI livesText;
+    public bool pathIsClear = true;
 
     #region Selectables Properties
     private GameObject _selectedObjectPrefab;
@@ -126,17 +127,23 @@ public class GameManager : MonoBehaviour
     // Drops a tower into a cell
     private void PlaceOjbectInCell(GridCell cell)
     {
-        if (_selectedObjectPrefab && !cell.isOccupied && CanPlaceObstacle(_waveManager.startPoint, _waveManager.endPoint, _selectedObjectPrefab, cell.transform.position))
+        if (_selectedObjectPrefab && !cell.isOccupied)
         {
             if (!_shopManager.CanAffordItem(_itemNumber)) { 
                 _audioManager.PlayErrorSound();
+                Debug.Log("Inside if statement in PlaceObjectInCell()");
                 return;}
             _shopManager.PurchasePlaceableItem(_itemNumber);
             GameObject newTower = Instantiate(_selectedObjectPrefab, cell.transform.position, Quaternion.identity);
             cell.objectInThisGridSpace = newTower;
             cell.isOccupied = true;
             cell.itemID = _itemNumber;
+            pathIsClear = true;
         }
+        pathIsClear = _waveManager.IsPathClearForAllAgents(cell);
+
+        if (!pathIsClear)
+            RemoveObjectFromCell(cell);
     }
     
     // Removes a object from a cell
