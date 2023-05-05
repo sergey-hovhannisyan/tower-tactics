@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Missile
-  description: 
+  description: 'Missile towers are heavy hitting towers that do alot of damage, but
+    have slow fire rates. These towers can be upgraded five times total amongst three
+    different categories: range, damage, and fire rate.'
   price: 50
   placeablePrice: 50
   image: {fileID: 21300000, guid: 0a783c821c8c4bc43807605d0be3db69, type: 3}
