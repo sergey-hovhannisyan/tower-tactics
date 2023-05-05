@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
     #region Private: GridCell Methods
 
     // Drops a tower into a cell
-        private void PlaceOjbectInCell(GridCell cell)
+    private void PlaceOjbectInCell(GridCell cell)
     {
         if (_selectedObjectPrefab && !cell.isOccupied)
         {
@@ -133,15 +133,18 @@ public class GameManager : MonoBehaviour
             if (!_shopManager.CanAffordItem(_itemNumber) || !pathIsClear) { 
                 _audioManager.PlayErrorSound();
                 Debug.Log("Inside if statement in PlaceObjectInCell()");
-                return;}
+                return;
+            }
             _shopManager.PurchasePlaceableItem(_itemNumber);
+            
+            // If path is clear, instantiate the new object and set the cell properties
             GameObject newTower = Instantiate(_selectedObjectPrefab, cell.transform.position, Quaternion.identity);
             cell.objectInThisGridSpace = newTower;
             cell.isOccupied = true;
             cell.itemID = _itemNumber;
-            pathIsClear = true;
         }
     }
+
     // private void PlaceOjbectInCell(GridCell cell)
     // {
     //     if (_selectedObjectPrefab && !cell.isOccupied)
@@ -251,7 +254,7 @@ public class GameManager : MonoBehaviour
 
     public void subtractlives(int livesCost) {
         lives -= livesCost;
-        if(lives < 0) {
+        if(lives <= 0) {
             lives = 0;
             _audioManager.PlayMenuBackgroundMusic();
             isPaused = true;
