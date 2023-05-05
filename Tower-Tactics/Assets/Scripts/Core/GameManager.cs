@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     private int _itemNumber;
     public bool _objectSelected = false;
     public bool _clearSelected = false;
+    public GameObject shopCanvas;
+    public GameObject gameCanvas;
+    public GameObject menuCanvas;
+    public GameObject homeErrorMessage;
     #endregion
 
     // #region  Enmey Properties
@@ -54,7 +58,14 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        if (_shopManager.GetNumberOfSelectedItems() == 0) { 
+            homeErrorMessage.SetActive(true);
+            return;}
+        Debug.Log("Number of selected items: " + _shopManager.GetNumberOfSelectedItems());
         ResumeGame();
+        shopCanvas.SetActive(false);
+        menuCanvas.SetActive(false);
+        gameCanvas.SetActive(true);
         //elapsedTime = 0f;
         //enemiesSpawnedInCurrentWave = 0;
         //StartCoroutine(SpawnEnemyRoutine());

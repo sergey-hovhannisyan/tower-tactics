@@ -62,7 +62,7 @@ public class ShopManager : MonoBehaviour
         return false;
     }
 
-    public IEnumerator ShowMessageTemporarily(string message, float duration)
+    IEnumerator ShowMessageTemporarily(string message, float duration)
     {
         messageTxt.text = message;
         yield return new WaitForSeconds(duration);
@@ -170,5 +170,10 @@ public class ShopManager : MonoBehaviour
 
             coinsTxt.text = coins.ToString();
         }
+    }
+
+    public int GetNumberOfSelectedItems()
+    {
+        return _numberOfSelected;
     }
 }
