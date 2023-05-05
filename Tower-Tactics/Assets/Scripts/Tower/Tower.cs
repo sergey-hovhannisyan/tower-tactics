@@ -16,6 +16,7 @@ public class Tower : MonoBehaviour
         canvasToToggle.SetActive(false);
         rangeIndicator.SetActive(false);
     }
+
     private void Update()
     {
         if (Input.touchCount > 0)
@@ -33,23 +34,28 @@ public class Tower : MonoBehaviour
                 EventSystem.current.RaycastAll(pointerEventData, raycastResults);
 
                 bool isTouchingUI = raycastResults.Count > 0;
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("DefenceObject")))
                 {
+                    Debug.Log("here123");
+                    Debug.Log(hit.collider.gameObject);
                     if (hit.collider.gameObject == gameObject)
                     {
+                        Debug.Log("here");
                         // Show the Canvas when touching the target GameObject
                         canvasToToggle.SetActive(true);
                         rangeIndicator.SetActive(true);
                     }
-    
-                    else if (canvasToToggle.activeSelf && !isTouchingUI)
+                    else if (!isTouchingUI)
                     {
-                        // Hide the Canvas when touching anywhere else
-                        canvasToToggle.SetActive(false);
-                        rangeIndicator.SetActive(false);
+                        if (canvasToToggle.activeSelf)
+                        {
+                            // Hide the Canvas when touching anywhere else
+                            canvasToToggle.SetActive(false);
+                            rangeIndicator.SetActive(false);
+                        }
                     }
                 }
-                else if (canvasToToggle.activeSelf)
+                else if (!isTouchingUI && canvasToToggle.activeSelf)
                 {
                     // Hide the Canvas when touching anywhere else
                     canvasToToggle.SetActive(false);

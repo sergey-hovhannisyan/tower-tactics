@@ -8,9 +8,13 @@ public class Laser : MonoBehaviour
     public Transform spawnPoint;
     public TowerAiming towerAiming;
     private LineRenderer lineRenderer;
+
+    public AudioClip audioClip;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         spawnedLaser.SetActive(true);
         lineRenderer = spawnedLaser.GetComponent<LineRenderer>();
     }
@@ -21,8 +25,12 @@ public class Laser : MonoBehaviour
         UpdateLaser();
         if (towerAiming.Target != null){
             EnableLaser();
+            if(!audioSource.isPlaying){
+            audioSource.Play();
+            }
         }
         else{
+            audioSource.Stop();
             DeactivateLaser();
         }
     }

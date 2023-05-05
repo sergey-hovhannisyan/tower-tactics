@@ -9,8 +9,9 @@ public class TowerAiming : MonoBehaviour
     public Transform turretTransform;
     public LayerMask enemyLayer;
 
+    public ParticleSystemController particleController;
     public Transform Target;
-    
+    public bool isAOETower = false;
     void Update()
     {
         FindClosestEnemy();
@@ -44,6 +45,14 @@ public class TowerAiming : MonoBehaviour
             direction.y  = 0;
             Quaternion TargetRotation = Quaternion.LookRotation(direction);
             turretTransform.rotation = Quaternion.Lerp(turretTransform.rotation, TargetRotation, Time.deltaTime * rotationSpeed);
+            if (isAOETower){
+                particleController.TurnOnParticleSystem();  
+            }
+        }
+        else{
+            if(isAOETower){
+                particleController.TurnOffParticleSystem();
+        }
         }
     }
 }
