@@ -62,6 +62,13 @@ public class ShopManager : MonoBehaviour
         return false;
     }
 
+    public IEnumerator ShowMessageTemporarily(string message, float duration)
+    {
+        messageTxt.text = message;
+        yield return new WaitForSeconds(duration);
+        messageTxt.text = "";
+    }
+
     public bool SelectItem(Item item)
     {
         if (item.unlocked && _numberOfSelected < maxNumberOfSelected)
@@ -79,9 +86,10 @@ public class ShopManager : MonoBehaviour
             selectedCounter.text = _numberOfSelected.ToString() + "/" + maxNumberOfSelected.ToString();
             return true;
         }
-        //messageTxt.text = "You can't select more items!";
-        else return false;
+        StartCoroutine(ShowMessageTemporarily("You can't select more items!", 2.0f));
+        return false;
     }
+
 
     private void LeftShift()
     {   
@@ -112,6 +120,8 @@ public class ShopManager : MonoBehaviour
             }
         }
         LeftShift();
+        selectedCounter.text = _numberOfSelected.ToString() + "/" + maxNumberOfSelected.ToString();
+        messageTxt.text = "";
     }
 
     public GameObject GetSelectedItemPrefab(int index)
