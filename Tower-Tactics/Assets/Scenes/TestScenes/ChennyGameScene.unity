@@ -2812,6 +2812,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5947432765216970609, guid: ae5fe4bfb82414c47bb4b12878d134da, type: 3}
+      propertyPath: m_text
+      value: Laser Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947432765216970609, guid: ae5fe4bfb82414c47bb4b12878d134da, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947432765216970609, guid: ae5fe4bfb82414c47bb4b12878d134da, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947432765216970609, guid: ae5fe4bfb82414c47bb4b12878d134da, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947432765216970609, guid: ae5fe4bfb82414c47bb4b12878d134da, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 7259668483944369883, guid: ae5fe4bfb82414c47bb4b12878d134da, type: 3}
       propertyPath: m_RootOrder
       value: 9
