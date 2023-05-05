@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class GameManager : MonoBehaviour
     private Camera mainCam;
     public Grid grid;
     public bool isPaused = false;
+    public int lives = 20;
+    public TextMeshProUGUI livesText;
 
     #region Selectables Properties
     private GameObject _selectedObjectPrefab;
@@ -90,8 +94,11 @@ public class GameManager : MonoBehaviour
     //     enemiesSpawnedInCurrentWave = 0;
     //     StartCoroutine(SpawnEnemyRoutine());
     // }
-
-
+    
+    void Update()
+    {
+        livesText.text = $"{lives}";
+    }
 
     #endregion
     
@@ -195,6 +202,17 @@ public class GameManager : MonoBehaviour
         _clearSelected = false;
     }
     
+    #endregion
+
+    #region Lives Control
+
+    public void subtractlives(int livesCost) {
+        lives -= livesCost;
+        if(lives < 0) {
+            lives = 0;
+        }
+    }
+
     #endregion
 
     // #region Waves Control Methods

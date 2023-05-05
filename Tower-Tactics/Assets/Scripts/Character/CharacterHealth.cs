@@ -33,7 +33,7 @@ public class CharacterHealth : MonoBehaviour
 
     void checkIfDead(){
         if(currentHealth <= 0){
-            Destroy(gameObject);
+            gameObject.GetComponent<CharacterMovements>().isDead = true;
         }
     }
     // Update is called once per frame
