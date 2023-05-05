@@ -47,5 +47,6 @@ MonoBehaviour:
   name: Missile
   description: 
   price: 50
+  placeablePrice: 50
   image: {fileID: 21300000, guid: 0a783c821c8c4bc43807605d0be3db69, type: 3}
   prefab: {fileID: 4663867066362290438, guid: 66e3324bde821614da0ce39fc7346f71, type: 3}

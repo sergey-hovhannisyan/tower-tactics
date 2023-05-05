@@ -15,8 +15,8 @@ public class ItemCard : MonoBehaviour
     public TMP_Text nameTxt;
     public GameObject itemPrefab;
     public TMP_Text priceTxt;
-    public GameObject gemsIcon;
     public GameObject price;
+    public GameObject gemsIcon;
 
     private Item _item;
 
@@ -27,7 +27,6 @@ public class ItemCard : MonoBehaviour
     {
         _shopManager = FindObjectOfType<ShopManager>();
         _item = _shopManager.InstantiateItem(itemPrefab);
-        Debug.Log("Instantiated item " + _item.name + " with ID " + _item.itemID);
         itemImage.sprite = _item.image;
         priceTxt.text = _item.price.ToString();
         nameTxt.text = _item.name;
@@ -45,7 +44,7 @@ public class ItemCard : MonoBehaviour
 
     public void Select()
     {
-        if (_item.unlocked)
+        if (_item.unlocked && !_item.selected && _shopManager.SelectItem(_item))
         {
             // Managing button states
             _item.selected = true;
@@ -53,15 +52,13 @@ public class ItemCard : MonoBehaviour
             price.SetActive(false);
             gemsIcon.SetActive(false);
             selectedCheckMarkButton.SetActive(true);
-
-            // Adding item to selected items
-            _shopManager.SelectItem(_item);
-
         }
     }
 
     public void Deselect()
     {
+        if (!_item.selected)
+            return;
         _item.selected = false;
         selectButton.SetActive(true);
         price.SetActive(true);

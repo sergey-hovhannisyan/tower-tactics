@@ -52,5 +52,6 @@ MonoBehaviour:
     Additionally, walls can be used to trap enemies in confined spaces, making them
     easy targets for the towers.
   price: 10
+  placeablePrice: 5
   image: {fileID: 21300000, guid: 2f23887b49bd3104b879ab49c995bd3f, type: 3}
   prefab: {fileID: 8093847769945571073, guid: 1fc08cf0261804f4995ee56451baf580, type: 3}
