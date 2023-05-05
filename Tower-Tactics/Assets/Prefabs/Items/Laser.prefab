@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Laser
-  description: 
+  description: 'Laser towers deal continuous damage to a single target. They are
+    effective at dealing with single enemies with larger health pools. These towers
+    can be upgraded five times total amongst two different categories: range and
+    damage.'
   price: 100
   placeablePrice: 100
   image: {fileID: 21300000, guid: 52006896c82444c4891fae075922f923, type: 3}
