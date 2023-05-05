@@ -30,7 +30,7 @@ public class setUpUpgrades : MonoBehaviour
         }
     }
 
-    private void attemptRangeUpgrade(){
+    public void attemptRangeUpgrade(){
         if(shopManager.PurchaseRangeUpgrade(name))
         {
             upgrade.IncreaseRange();
@@ -47,10 +47,5 @@ public class setUpUpgrades : MonoBehaviour
         {
             upgrade.IncreaseFireRate();
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
