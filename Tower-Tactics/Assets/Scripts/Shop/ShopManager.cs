@@ -153,6 +153,13 @@ public class ShopManager : MonoBehaviour
         return false;
     }
 
+    public bool CanAffordRangeUpgrade(int index)
+    {
+        if (index >= 0 && index < _numberOfSelected)
+            return coins >= _selectedItems[index].rangeUpgradePrice;
+        return false;
+    }
+
     public void PurchasePlaceableItem(int index)
     {
         if (index >= 0 && index < _numberOfSelected)
