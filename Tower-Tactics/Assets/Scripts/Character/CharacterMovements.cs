@@ -8,6 +8,7 @@ public class CharacterMovements : MonoBehaviour
     private float speed = 5.0f;
     private float movementThreshold = 0.01f;
     private float rotationSpeed = 720.0f;
+    private float remainingDistanceThreshold = 0.5f;
 
     public NavMeshAgent agent;
     public Transform endpoint;
@@ -17,10 +18,13 @@ public class CharacterMovements : MonoBehaviour
     private CapsuleCollider capsuleCollider;
     private Coroutine deathCoroutine;
 
-    
     public bool isMoving = true;
     public bool isAttacking = false;
     public bool isDead = false;
+
+    public AudioClip deathSound;
+    private AudioSource audioSource;
+    private bool deathSoundPlayed = false;
 
     private void Start()
     {
@@ -28,12 +32,24 @@ public class CharacterMovements : MonoBehaviour
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         agent = GetComponent<NavMeshAgent>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        agent.SetDestination(endpoint.position);
-
+        if (agent.enabled && endpoint != null){
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(agent.transform.position, out hit, agent.height * 2f, NavMesh.AllAreas)){
+                agent.SetDestination(endpoint.position);
+                if (!agent.pathPending && agent.remainingDistance <= remainingDistanceThreshold){
+                    Destroy(gameObject);
+                }
+            }
+            else{
+                Debug.LogWarning("Agent is not on a valid NavMesh.");
+            }
+        }
+        
         if (agent.velocity.magnitude > 0.1f){
             Quaternion targetRotation = Quaternion.LookRotation(agent.velocity.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
@@ -42,14 +58,18 @@ public class CharacterMovements : MonoBehaviour
         animator.SetBool("isAttacking", isAttacking);
         animator.SetBool("isDead", isDead);  
 
-        if (isDead)
-        {
+        if (isDead){
+            if (agent != null){
+                agent.enabled = false;
+            }
+            gameObject.layer = 10;
+            if(!deathSoundPlayed){
+                PlayDeathSound();
+                deathSoundPlayed = true;
+            }
+            
             deathCoroutine = StartCoroutine(ChangeCapsuleColliderHeight(0.9f, 2.3f));
             StartCoroutine(DestroyAfterDelay(3.0f));
-        }
-
-        if (Vector3.Distance(transform.position, endpoint.position) < 0.5f){
-            Destroy(gameObject);
         }
 
         // //makes the charater stop if no path found
@@ -93,6 +113,13 @@ public class CharacterMovements : MonoBehaviour
     {
         NavMeshHit hit;
         return NavMesh.SamplePosition(agent.transform.position, out hit, 1f, NavMesh.AllAreas);
+    }
+
+    void PlayDeathSound()
+    {
+        // Set the AudioClip and play it
+        audioSource.clip = deathSound;
+        audioSource.Play();
     }
 
 }

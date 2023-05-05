@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
@@ -25,9 +27,12 @@ public class WaveManager : MonoBehaviour
     public float spawnWaveInterval = 20.0f;
     public float[] levelDifficulties = { 1f, 1.5f, 2f, 4f };
 
+    public TextMeshProUGUI  levelAndWavesText;
+    public TextMeshProUGUI  nextWaveText;
+
     public int level = 0;
     public int currentWaveIndex = 0;
-    public float timeToNextWave = 0;
+    public int timeToNextWave = 0;
 
     private float elapsedTimeSinceLastWave;
     #endregion
@@ -70,7 +75,10 @@ public class WaveManager : MonoBehaviour
             elapsedTimeSinceLastWave = 20f;
         }
         
-        timeToNextWave = spawnWaveInterval - elapsedTimeSinceLastWave;
+        timeToNextWave = Mathf.CeilToInt(spawnWaveInterval - elapsedTimeSinceLastWave);
+
+        levelAndWavesText.text = $"Level: {level + 1} Wave: {currentWaveIndex + 1}";
+        nextWaveText.text = $"Next Wave Coming in: {timeToNextWave}s";
     }
 
     private IEnumerator SpawnWaveRoutine()
@@ -81,9 +89,9 @@ public class WaveManager : MonoBehaviour
             Wave currentWave = waves[currentWaveIndex];
 
             // Start spawn routines for each enemy type concurrently
-            Coroutine enemyRoutine = StartCoroutine(SpawnEnemiesOfType(enemyPrefab, currentWave.enemyCount * levelDifficulties[level], spawnEnemyInterval));
-            Coroutine fastRoutine = StartCoroutine(SpawnEnemiesOfType(fastPrefab, currentWave.fastCount * levelDifficulties[level], spawnFastInterval));
-            Coroutine heavyRoutine = StartCoroutine(SpawnEnemiesOfType(heavyPrefab, currentWave.heavyCount * levelDifficulties[level], spawnHeavyInterval));
+            Coroutine enemyRoutine = StartCoroutine(SpawnEnemiesOfType(enemyPrefab, currentWave.enemyCount * levelDifficulties[level], spawnEnemyInterval * 1.5f / levelDifficulties[level]));
+            Coroutine fastRoutine = StartCoroutine(SpawnEnemiesOfType(fastPrefab, currentWave.fastCount * levelDifficulties[level], spawnFastInterval * 1.5f / levelDifficulties[level]));
+            Coroutine heavyRoutine = StartCoroutine(SpawnEnemiesOfType(heavyPrefab, currentWave.heavyCount * levelDifficulties[level], spawnHeavyInterval * 1.5f / levelDifficulties[level]));
 
             // Wait for all enemy types spawn routines to complete
             yield return enemyRoutine;
