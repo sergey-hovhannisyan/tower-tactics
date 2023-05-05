@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
             errorMessage.text = "No Towers Selected!";
             //homeErrorMessage.SetActive(true);
             return;}
+        errorMessage.text = "";
         Debug.Log("Number of selected items: " + _shopManager.GetNumberOfSelectedItems());
         ResumeGame();
         shopCanvas.SetActive(false);
@@ -125,7 +126,7 @@ public class GameManager : MonoBehaviour
     // Drops a tower into a cell
     private void PlaceOjbectInCell(GridCell cell)
     {
-        if (_selectedObjectPrefab && !cell.isOccupied)
+        if (_selectedObjectPrefab && !cell.isOccupied && CanPlaceObstacle(_waveManager.startPoint, _waveManager.endPoint, _selectedObjectPrefab, cell.transform.position))
         {
             if (!_shopManager.CanAffordItem(_itemNumber)) { 
                 _audioManager.PlayErrorSound();
@@ -282,5 +283,19 @@ public class GameManager : MonoBehaviour
     // }
     
     // #endregion
+    public bool CanPlaceObstacle(Transform startPoint, Transform endPoint, GameObject obstaclePrefab, Vector3 obstaclePosition)
+    {
+        // Instantiate an obstacle in the desired position
+        GameObject tempObstacle = Instantiate(obstaclePrefab, obstaclePosition, Quaternion.identity);
+
+        // Calculate the path between the start and end points
+        UnityEngine.AI.NavMeshPath path = new UnityEngine.AI.NavMeshPath();
+        bool pathFound = UnityEngine.AI.NavMesh.CalculatePath(startPoint.position, endPoint.position, UnityEngine.AI.NavMesh.AllAreas, path);
+
+        // Destroy the temporary obstacle
+        Destroy(tempObstacle);
+
+        return pathFound;
+    }
 
 }

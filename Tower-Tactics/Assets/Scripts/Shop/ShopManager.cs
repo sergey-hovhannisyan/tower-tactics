@@ -267,6 +267,7 @@ public class ShopManager : MonoBehaviour
     public void addGem(int gemToAdd){
         gems += gemToAdd;
         gemsTxt.text = gems.ToString();
+    }
 
     public int GetNumberOfSelectedTowers()
     {
@@ -276,6 +277,6 @@ public class ShopManager : MonoBehaviour
             if (_selectedItems[i].isTower)
                 count++;
         }
-
+        return count;
     }
 }
