@@ -39,8 +39,16 @@ public class WaveManager : MonoBehaviour
     public int infiniteCount = 0;
     private float elapsedTime = 0f;
 
+    private GameObject dummy;
+    public Transform dummyPoint;
+
     private float elapsedTimeSinceLastWave;
+
     #endregion
+
+    public void Start(){
+        dummy = SpawnDumbEnemy(enemyPrefab,dummyPoint);
+    }
 
     public void StartGame()
     {
@@ -80,11 +88,14 @@ public class WaveManager : MonoBehaviour
         waves.Add(wave9);
         waves.Add(wave10);
 
+        dummy = SpawnDumbEnemy(enemyPrefab,dummyPoint);
         StartCoroutine(SpawnWaveRoutine());
     }
 
     void Update()
     {
+        dummy.transform.position = dummyPoint.position;
+
         elapsedTime += Time.deltaTime;
 
         if(elapsedTimeSinceLastWave < spawnWaveInterval){
@@ -159,6 +170,13 @@ public class WaveManager : MonoBehaviour
     {
         GameObject newEnemy = Instantiate(prefab, startPoint.position, Quaternion.identity);
         newEnemy.GetComponent<CharacterMovements>().endpoint = endPoint;
+    }
+
+    private GameObject SpawnDumbEnemy(GameObject prefab, Transform dummyPoint)
+    {
+        GameObject newEnemy = Instantiate(prefab, dummyPoint.position, Quaternion.identity);
+        newEnemy.GetComponent<CharacterMovements>().endpoint = endPoint;
+        return newEnemy;
     }
 
     private string FormatElapsedTime(float time)
