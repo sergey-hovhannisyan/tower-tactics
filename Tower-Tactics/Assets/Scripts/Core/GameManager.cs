@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
             errorMessage.text = "No Towers Selected!";
             //homeErrorMessage.SetActive(true);
             return;}
+        errorMessage.text = "";
         Debug.Log("Number of selected items: " + _shopManager.GetNumberOfSelectedItems());
         ResumeGame();
         shopCanvas.SetActive(false);
