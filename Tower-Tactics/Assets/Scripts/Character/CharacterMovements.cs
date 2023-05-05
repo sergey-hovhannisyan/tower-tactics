@@ -64,7 +64,6 @@ public class CharacterMovements : MonoBehaviour
                         Destroy(gameObject);
                     }
                 }
-                
             }
             else{
                 Debug.LogWarning("Agent is not on a valid NavMesh.");
