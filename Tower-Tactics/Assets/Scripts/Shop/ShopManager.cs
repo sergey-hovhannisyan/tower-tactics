@@ -9,7 +9,7 @@ using System;
 public class ShopManager : MonoBehaviour
 {
     private AudioManager _audioManager;
-    public static int maxNumberOfItems = 6;
+    public static int maxNumberOfItems = 7;
     private static int _newItemID = 0;
     private int _numberOfSelected = 0;
     public int maxNumberOfSelected = 4;
@@ -24,15 +24,22 @@ public class ShopManager : MonoBehaviour
     public int startCoins = 500;
     private int coins;
     public TMP_Text coinsTxt;
+    public TMP_Text shopCoinsTxt;
 
     public TMP_Text messageTxt;
 
     void Start()
     {
         _audioManager = FindObjectOfType<AudioManager>();
-        gemsTxt.text = gems.ToString();
+        RenderShopMoney();
         selectedCounter.text = _numberOfSelected.ToString() + "/" + maxNumberOfSelected.ToString();
         _selectedItems = new Item[maxNumberOfSelected];
+    }
+
+    public void RenderShopMoney()
+    {
+        gemsTxt.text = gems.ToString();
+        shopCoinsTxt.text = startCoins.ToString();
     }
 
     public void StartGame()
@@ -54,6 +61,14 @@ public class ShopManager : MonoBehaviour
     {
         if (gems >= item.price)
         {
+            if (item.isGold)
+            {
+                startCoins += item.placeablePrice;
+                RenderShopMoney();
+                _audioManager.PlayUnlockGold();
+            }
+            else
+                _audioManager.PlayUnlockItem();
             gems -= item.price;
             item.unlocked = true;
             gemsTxt.text = gems.ToString();
@@ -243,6 +258,7 @@ public class ShopManager : MonoBehaviour
         return _numberOfSelected;
     }
 
+
     public void addMoney(int money){
         coins += money;
         coinsTxt.text = coins.ToString();
@@ -251,5 +267,15 @@ public class ShopManager : MonoBehaviour
     public void addGem(int gemToAdd){
         gems += gemToAdd;
         gemsTxt.text = gems.ToString();
+
+    public int GetNumberOfSelectedTowers()
+    {
+        int count = 0;
+        for (int i = 0; i < _numberOfSelected; i++)
+        {
+            if (_selectedItems[i].isTower)
+                count++;
+        }
+
     }
 }

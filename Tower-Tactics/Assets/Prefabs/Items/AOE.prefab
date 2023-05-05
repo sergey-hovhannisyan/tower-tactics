@@ -51,6 +51,8 @@ MonoBehaviour:
     watch them become unstoppable forces of destruction! AOE towers are a vital tool
     in your arsenal for taking on large groups of enemies. Upgrade them wisely to
     create a defense that no horde can overcome!
+  isGold: 0
+  isTower: 1
   price: 60
   placeablePrice: 60
   rangeUpgradePrice: 20
