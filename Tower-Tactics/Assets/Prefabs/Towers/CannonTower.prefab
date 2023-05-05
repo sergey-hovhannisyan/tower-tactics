@@ -1339,7 +1339,7 @@ Transform:
   m_GameObject: {fileID: 4530836192696996781}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 0.024999999, z: 10}
+  m_LocalScale: {x: 6, y: 0.015, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4530836194440951355}
@@ -1661,7 +1661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6beff1d006e8e4cb6c4a8231d78198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
+  range: 3
   rotationSpeed: 7
   turretTransform: {fileID: 4530836194440951349}
   enemyLayer:
@@ -1690,10 +1690,10 @@ MonoBehaviour:
   towerAiming: {fileID: 4530836193968097662}
   upgradeCanvas: {fileID: 1603171660}
   maxLvlCanvas: {fileID: 1271059311}
-  rangeIncreaseFactor: 1.25
+  rangeIncreaseFactor: 1.2
   fireRateIncreaseFactor: 1.25
   bulletDamageIncrease: 5
-  damageOverTimeIncrease: 1
+  damageOverTimeIncrease: 3
 --- !u!114 &4530836194443362833
 MonoBehaviour:
   m_ObjectHideFlags: 0
