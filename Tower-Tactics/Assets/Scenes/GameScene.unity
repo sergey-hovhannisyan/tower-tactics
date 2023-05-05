@@ -19967,7 +19967,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785181011}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.26, y: 0, z: 0.25}
+  m_LocalPosition: {x: 22.26, y: 0, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20923,7 +20923,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862142630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.99, y: 0, z: 0.25}
+  m_LocalPosition: {x: -22.74, y: 0, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22675,8 +22675,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446948541445824901}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1716, y: 0, z: 0.3605}
-  m_LocalScale: {x: 4.2046633, y: 1, z: 1.5868874}
+  m_LocalPosition: {x: -0.2786, y: -0, z: -0.5}
+  m_LocalScale: {x: 4.6434474, y: 1, z: 1.5193846}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8154573695053373094}
@@ -22811,7 +22811,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 727
+    m_Bits: 2007
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -23945,12 +23945,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 446948541154195137}
   isPaused: 0
+  lives: 20
+  livesText: {fileID: 0}
   _objectSelected: 0
   _clearSelected: 0
   shopCanvas: {fileID: 1234447601}
   gameCanvas: {fileID: 1395349191}
   menuCanvas: {fileID: 1756116446}
   homeErrorMessage: {fileID: 1393995047}
+  enemyPrefab: {fileID: 0}
+  startpoint: {fileID: 0}
+  spawnEnemyInterval: 0.5
+  spawnWaveInterval: 1
+  spawnCount: 5
 --- !u!4 &8154573695053373094
 Transform:
   m_ObjectHideFlags: 0
@@ -24237,8 +24244,21 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2977577819232278436, guid: 6f2dc78eb3e5a0043b1eadb7ae8c6787, type: 3}
   fastPrefab: {fileID: 2977577819232278436, guid: 20ee3848c67a1ad48b95f76dd8be71bb, type: 3}
   heavyPrefab: {fileID: 2977577819232278436, guid: 069315eb0b7e7ca4bbd36964347f6047, type: 3}
-  startpoint: {fileID: 1862142631}
-  endpoint: {fileID: 1785181012}
-  spawnEnemyInterval: 0.5
-  spawnWaveInterval: 15
+  startPoint: {fileID: 1862142631}
+  endPoint: {fileID: 1785181012}
   waves: []
+  spawnEnemyInterval: 0.5
+  spawnFastInterval: 0.5
+  spawnHeavyInterval: 3
+  spawnWaveInterval: 2
+  levelDifficulties:
+  - 1
+  - 1.5
+  - 2
+  - 4
+  levelAndWavesText: {fileID: 0}
+  nextWaveText: {fileID: 0}
+  timerText: {fileID: 0}
+  level: 0
+  currentWaveIndex: 0
+  timeToNextWave: 0
