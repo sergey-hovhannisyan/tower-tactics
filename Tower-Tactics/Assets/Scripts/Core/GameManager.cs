@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private InputManager _inputManager;
     private AudioManager _audioManager;
     private ShopManager _shopManager;
+    private WaveManager _waveManager;
     private Camera mainCam;
     public Grid grid;
     public bool isPaused = false;
@@ -26,6 +27,9 @@ public class GameManager : MonoBehaviour
     public GameObject shopCanvas;
     public GameObject gameCanvas;
     public GameObject menuCanvas;
+    public GameObject loseCanvas;
+    public GameObject winCanvas;
+    public GameObject levelCompleteCanvas;
     public GameObject homeErrorMessage;
     #endregion
 
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
         else
         {
             mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            _waveManager = gameObject.GetComponent<WaveManager>();
             _inputManager = gameObject.GetComponent<InputManager>();
             _audioManager = gameObject.GetComponent<AudioManager>();
             _shopManager = gameObject.GetComponent<ShopManager>();
@@ -62,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        _waveManager.level = 0;
         if (_shopManager.GetNumberOfSelectedItems() == 0) { 
             homeErrorMessage.SetActive(true);
             return;}
@@ -73,8 +79,8 @@ public class GameManager : MonoBehaviour
         //elapsedTime = 0f;
         //enemiesSpawnedInCurrentWave = 0;
         //StartCoroutine(SpawnEnemyRoutine());
-        //_shopManager.RenderSelectedItems();
-        //_shopManager.StartGame();
+        _shopManager.RenderSelectedItems();
+        _shopManager.StartGame();
     }
 
     public void QuitGame()
@@ -215,14 +221,39 @@ public class GameManager : MonoBehaviour
     
     #endregion
 
-    #region Lives Control
+    #region Level Control
 
     public void subtractlives(int livesCost) {
         lives -= livesCost;
         if(lives < 0) {
             lives = 0;
+            _audioManager.PlayMenuBackgroundMusic();
+            isPaused = true;
+            Time.timeScale = 0;
+            DeselectPlaceable();
+            gameCanvas.SetActive(false);
+            loseCanvas.SetActive(true);
         }
     }
+
+    public void levelComplete(){
+        _audioManager.PlayMenuBackgroundMusic();
+        isPaused = true;
+        Time.timeScale = 0;
+        DeselectPlaceable();
+        gameCanvas.SetActive(false);
+        levelCompleteCanvas.SetActive(true);
+    }
+
+    public void win(){
+        _audioManager.PlayMenuBackgroundMusic();
+        isPaused = true;
+        Time.timeScale = 0;
+        DeselectPlaceable();
+        gameCanvas.SetActive(false);
+        winCanvas.SetActive(true);
+    }
+
 
     #endregion
 
