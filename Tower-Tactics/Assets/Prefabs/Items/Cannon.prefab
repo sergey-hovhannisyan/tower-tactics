@@ -51,6 +51,8 @@ MonoBehaviour:
     range, damage, and fire rate categories to create a powerful defense. Your choices
     in upgrades will have a large impact on the effectiveness of your tower, so choose
     wisely!
+  isGold: 0
+  isTower: 1
   price: 30
   placeablePrice: 30
   rangeUpgradePrice: 10

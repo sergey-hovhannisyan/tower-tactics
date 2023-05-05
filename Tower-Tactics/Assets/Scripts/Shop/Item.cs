@@ -9,6 +9,7 @@ public class Item : MonoBehaviour
     public String name; 
     public String description;
     public bool isGold = false;
+    public bool isTower = false;
     public int price; // Price in gems to unlock
     public int placeablePrice; // Price in coins to place
     public int rangeUpgradePrice = 30; // Price in coins to upgrade range

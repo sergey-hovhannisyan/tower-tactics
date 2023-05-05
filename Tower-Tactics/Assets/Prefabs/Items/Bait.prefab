@@ -52,6 +52,8 @@ MonoBehaviour:
     trade-off between the potential reward of luring enemies and the risk of losing
     valuable wall structures. Use your baits strategically to gain the upper hand
     and emerge victorious in every battle!
+  isGold: 0
+  isTower: 1
   price: 20
   placeablePrice: 20
   rangeUpgradePrice: 0

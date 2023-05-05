@@ -45,7 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Gold
-  description: 
+  description: Ready to unleash your inner tactician? Purchase gold before the game
+    to unlock a powerful advantage! With increased starting coin amounts, you'll
+    be able to build an unstoppable tower defense and dominate the battlefield from
+    the very beginning. Choose your towers and baits carefully, and pave the way
+    to victory with a strategic defense that will have your enemies trembling. Seize
+    the advantage today and show the world what you're made of!
   isGold: 1
   price: 10
   placeablePrice: 1000

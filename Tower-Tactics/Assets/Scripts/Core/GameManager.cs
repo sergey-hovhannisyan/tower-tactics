@@ -68,8 +68,8 @@ public class GameManager : MonoBehaviour
     public void StartGame(TMP_Text errorMessage)
     {
         _waveManager.level = 0;
-        if (_shopManager.GetNumberOfSelectedItems() == 0) { 
-            errorMessage.text = "You must select at least one item!";
+        if (_shopManager.GetNumberOfSelectedTowers() == 0) { 
+            errorMessage.text = "No Towers Selected!";
             //homeErrorMessage.SetActive(true);
             return;}
         Debug.Log("Number of selected items: " + _shopManager.GetNumberOfSelectedItems());

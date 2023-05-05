@@ -24,15 +24,22 @@ public class ShopManager : MonoBehaviour
     public int startCoins = 500;
     private int coins;
     public TMP_Text coinsTxt;
+    public TMP_Text shopCoinsTxt;
 
     public TMP_Text messageTxt;
 
     void Start()
     {
         _audioManager = FindObjectOfType<AudioManager>();
-        gemsTxt.text = gems.ToString();
+        RenderShopMoney();
         selectedCounter.text = _numberOfSelected.ToString() + "/" + maxNumberOfSelected.ToString();
         _selectedItems = new Item[maxNumberOfSelected];
+    }
+
+    public void RenderShopMoney()
+    {
+        gemsTxt.text = gems.ToString();
+        shopCoinsTxt.text = startCoins.ToString();
     }
 
     public void StartGame()
@@ -56,8 +63,8 @@ public class ShopManager : MonoBehaviour
         {
             if (item.isGold)
             {
-                coins += item.placeablePrice;
-                coinsTxt.text = coins.ToString();
+                startCoins += item.placeablePrice;
+                RenderShopMoney();
                 _audioManager.PlayUnlockGold();
             }
             else
@@ -249,5 +256,16 @@ public class ShopManager : MonoBehaviour
     public int GetNumberOfSelectedItems()
     {
         return _numberOfSelected;
+    }
+
+    public int GetNumberOfSelectedTowers()
+    {
+        int count = 0;
+        for (int i = 0; i < _numberOfSelected; i++)
+        {
+            if (_selectedItems[i].isTower)
+                count++;
+        }
+        return count;
     }
 }
