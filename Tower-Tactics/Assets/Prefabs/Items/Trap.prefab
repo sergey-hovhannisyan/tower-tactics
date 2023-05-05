@@ -52,5 +52,6 @@ MonoBehaviour:
     the trade-off between the potential reward of trapping enemies and the risk of
     losing valuable wall structures.
   price: 20
+  placeablePrice: 50
   image: {fileID: 21300000, guid: 52e4b0a11d70f3a4b975cd5e7c78cee3, type: 3}
-  prefab: {fileID: 2145423111895370997, guid: 3110120c87eb5b14c9165da202ab177f, type: 3}
+  prefab: {fileID: 4394303310616904986, guid: 3110120c87eb5b14c9165da202ab177f, type: 3}

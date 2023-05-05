@@ -47,5 +47,6 @@ MonoBehaviour:
   name: AOE
   description: 
   price: 60
+  placeablePrice: 60
   image: {fileID: 21300000, guid: ba000633eadcb3c488b445c2346caa40, type: 3}
   prefab: {fileID: 1761146220790305225, guid: aa0c640d905d3fd4f936f0e83fba0132, type: 3}

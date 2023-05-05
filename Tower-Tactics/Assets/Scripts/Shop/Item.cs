@@ -8,7 +8,8 @@ public class Item : MonoBehaviour
 {
     public String name; 
     public String description;
-    public int price;
+    public int price; // Price in gems to unlock
+    public int placeablePrice; // Price in coins to place
     public Sprite image;
     public GameObject prefab;
     
@@ -48,7 +49,7 @@ public class Item : MonoBehaviour
         get { return _numberOfItems; }
     }
 
-    public void Render(Image image)
+    public void RenderImage(Image image)
     {
         image.sprite = this.image;
     }
