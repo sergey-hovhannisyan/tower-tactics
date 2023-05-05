@@ -11,11 +11,18 @@ public class Shoot : MonoBehaviour
     public TowerAiming towerAiming;
     private float timeSinceLastShot;
     public int damage = 5;
-
+    
+    public AudioClip audioClip;
+    private AudioSource audioSource;
     private Transform target;
     private Bullet bullet;
+
+    private void Start(){
+        audioSource = GetComponent<AudioSource>();
+    }
     private void Update()
     {
+        
         timeSinceLastShot += Time.deltaTime;
 
         if (towerAiming.Target != null && timeSinceLastShot >= 1f / fireRate)
@@ -34,6 +41,7 @@ public class Shoot : MonoBehaviour
 
         GameObject projectileInstance = Instantiate(projectilePrefab, projectileSpawnPoint.position, rotation);
         Rigidbody projectileRigidbody = projectileInstance.GetComponent<Rigidbody>();
+        audioSource.PlayOneShot(audioClip);
 
         if (projectileRigidbody != null)
         {
