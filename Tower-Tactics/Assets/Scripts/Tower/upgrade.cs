@@ -29,6 +29,7 @@ public class Upgrade : MonoBehaviour
             AOETower.transform.localScale = Vector3.Scale(AOETower.transform.localScale, scaleChange);
         }
         numOfUpgrades++;
+        Debug.Log("upgradeCount" + numOfUpgrades);
         checkUpgradeCount();
     }
 
@@ -49,6 +50,7 @@ public class Upgrade : MonoBehaviour
         checkUpgradeCount();
     }
     private void checkUpgradeCount(){
+        // Debug.Log("upgradeCount" + numOfUpgrades);
         if (numOfUpgrades >= maxUpgrades){
             upgradeCanvas.SetActive(false);
             maxLvlCanvas.SetActive(true);

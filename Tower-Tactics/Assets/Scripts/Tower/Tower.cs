@@ -40,7 +40,6 @@ public class Tower : MonoBehaviour
                     Debug.Log(hit.collider.gameObject);
                     if (hit.collider.gameObject == gameObject)
                     {
-                        Debug.Log("here");
                         // Show the Canvas when touching the target GameObject
                         canvasToToggle.SetActive(true);
                         rangeIndicator.SetActive(true);
