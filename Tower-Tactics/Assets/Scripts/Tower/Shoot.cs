@@ -36,10 +36,10 @@ public class Shoot : MonoBehaviour
     private void ShootProjectile()
     {
         Vector3 direction = (target.position - projectileSpawnPoint.position).normalized;
-        Vector3 directionYOnly = new Vector3(90, direction.y, 0);
-        Quaternion rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(directionYOnly);
+        Vector3 targetPositionYFixed = new Vector3(target.position.x, projectileSpawnPoint.position.y, target.position.z);
 
-        GameObject projectileInstance = Instantiate(projectilePrefab, projectileSpawnPoint.position, rotation);
+        GameObject projectileInstance = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+        projectileInstance.transform.LookAt(targetPositionYFixed);
         Rigidbody projectileRigidbody = projectileInstance.GetComponent<Rigidbody>();
         audioSource.PlayOneShot(audioClip);
 
@@ -47,13 +47,14 @@ public class Shoot : MonoBehaviour
         {
             float distanceToTarget = Vector3.Distance(projectileSpawnPoint.position, target.position);
             float timeToTarget = distanceToTarget / projectileSpeed;
-            Vector3 targetFuturePosition = target.position + target.GetComponent<Rigidbody>().velocity * timeToTarget;
+            Vector3 targetFuturePosition = targetPositionYFixed + target.GetComponent<Rigidbody>().velocity * timeToTarget;
 
             projectileRigidbody.velocity = (targetFuturePosition - projectileSpawnPoint.position).normalized * projectileSpeed;
         }
 
         Destroy(projectileInstance, 5f);
     }
+
 
     public void upgradeDamage(int increment)
     {

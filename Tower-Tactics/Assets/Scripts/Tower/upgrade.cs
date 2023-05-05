@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class upgrade : MonoBehaviour
+public class Upgrade : MonoBehaviour
 {
     private int numOfUpgrades = 0;
     public int maxUpgrades = 5;
@@ -29,6 +29,7 @@ public class upgrade : MonoBehaviour
             AOETower.transform.localScale = Vector3.Scale(AOETower.transform.localScale, scaleChange);
         }
         numOfUpgrades++;
+        Debug.Log("upgradeCount" + numOfUpgrades);
         checkUpgradeCount();
     }
 
@@ -49,6 +50,7 @@ public class upgrade : MonoBehaviour
         checkUpgradeCount();
     }
     private void checkUpgradeCount(){
+        // Debug.Log("upgradeCount" + numOfUpgrades);
         if (numOfUpgrades >= maxUpgrades){
             upgradeCanvas.SetActive(false);
             maxLvlCanvas.SetActive(true);

@@ -45,10 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Missile
-  description: 'Missile towers are heavy hitting towers that do alot of damage, but
-    have slow fire rates. These towers can be upgraded five times total amongst three
-    different categories: range, damage, and fire rate.'
+  description: Rain down a hail of destruction on your enemies with Missile towers!
+    These heavy hitters pack a massive punch against individual targets, but have
+    a slow firing rate. Upgrade them wisely across range, damage, and fire rate categories
+    to create a devastating defense that your enemies won't be able to withstand.
+    With their heavy hitting power, Missile towers are the perfect tool for taking
+    out high priority targets and turning the tide of battle in your favor!
   price: 50
   placeablePrice: 50
+  rangeUpgradePrice: 20
+  damageUpgradePrice: 30
+  fireRateUpgradePrice: 30
   image: {fileID: 21300000, guid: 0a783c821c8c4bc43807605d0be3db69, type: 3}
   prefab: {fileID: 4663867066362290438, guid: 66e3324bde821614da0ce39fc7346f71, type: 3}
