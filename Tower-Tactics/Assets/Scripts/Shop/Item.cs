@@ -10,6 +10,9 @@ public class Item : MonoBehaviour
     public String description;
     public int price; // Price in gems to unlock
     public int placeablePrice; // Price in coins to place
+    public int rangeUpgradePrice; // Price in coins to upgrade range
+    public int damageUpgradePrice; // Price in coins to upgrade damage
+    public int fireRateUpgradePrice; // Price in coins to upgrade fire rate
     public Sprite image;
     public GameObject prefab;
     
