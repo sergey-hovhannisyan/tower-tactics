@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
 
     // Background music
     public void PlayMenuBackgroundMusic()
-    {
+    {   
         PlayAudioClip(0, true);
     }
 
@@ -76,5 +76,14 @@ public class AudioManager : MonoBehaviour
         parallelAudioSource.UnPause();
         _isMainAudioSourcePaused = false;
         _isParallelAudioSourcePaused = false;
+    }
+
+    public void PlayUpgradeSound()
+    {
+        for (int i = 0; i < _audioClips.Length; i++ ){
+            if (_audioClips[i].clipName == "upgradeSound"){
+                audioSource.PlayOneShot(_audioClips[i].audioClip,0.5f);
+            }
+        }
     }
 }

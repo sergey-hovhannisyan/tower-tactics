@@ -53,8 +53,8 @@ MonoBehaviour:
     out high priority targets and turning the tide of battle in your favor!
   price: 50
   placeablePrice: 50
-  rangeUpgradePrice: 0
-  damageUpgradePrice: 0
-  fireRateUpgradePrice: 0
+  rangeUpgradePrice: 20
+  damageUpgradePrice: 30
+  fireRateUpgradePrice: 30
   image: {fileID: 21300000, guid: 0a783c821c8c4bc43807605d0be3db69, type: 3}
   prefab: {fileID: 4663867066362290438, guid: 66e3324bde821614da0ce39fc7346f71, type: 3}
