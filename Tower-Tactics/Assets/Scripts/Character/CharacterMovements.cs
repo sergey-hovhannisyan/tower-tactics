@@ -125,5 +125,4 @@ public class CharacterMovements : MonoBehaviour
         audioSource.clip = deathSound;
         audioSource.Play();
     }
-
 }
