@@ -15,6 +15,7 @@ public class WaveManager : MonoBehaviour
     }
 
     #region Enemy Properties
+    private GameManager _gameManager;
     public GameObject enemyPrefab;
     public GameObject fastPrefab;
     public GameObject heavyPrefab;
@@ -25,7 +26,7 @@ public class WaveManager : MonoBehaviour
     public float spawnFastInterval = 0.5f;
     public float spawnHeavyInterval = 3f;
     public float spawnWaveInterval = 20.0f;
-    public float[] levelDifficulties = { 1f, 1.5f, 2f, 4f };
+    public float[] levelDifficulties = { 1f, 1.5f, 2f, 3f, 4f};
 
     public TextMeshProUGUI  levelAndWavesText;
     public TextMeshProUGUI  nextWaveText;
@@ -34,14 +35,26 @@ public class WaveManager : MonoBehaviour
     public int level = 0;
     public int currentWaveIndex = 0;
     public int timeToNextWave = 0;
+    public int infiniteCount = 0;
     private float elapsedTime = 0f;
 
     private float elapsedTimeSinceLastWave;
     #endregion
 
-    void Start()
+    public void StartGame()
     {
+        StopAllCoroutines();
+        DestroyAllNavMeshAgents();
+        _gameManager = gameObject.GetComponent<GameManager>();
+
+        _gameManager.lives = 20;
         elapsedTimeSinceLastWave = 10f;
+        level = 0;
+        currentWaveIndex = 0;
+        timeToNextWave = 0;
+        elapsedTime = 0f;
+        infiniteCount = 0;
+        waves.Clear();
 
         Wave wave1 = new Wave { enemyCount = 6, fastCount = 0, heavyCount = 0 };
         Wave wave2 = new Wave { enemyCount = 12, fastCount = 0, heavyCount = 0 };
@@ -55,15 +68,15 @@ public class WaveManager : MonoBehaviour
         Wave wave10 = new Wave { enemyCount = 48, fastCount = 96, heavyCount = 12 };
 
         waves.Add(wave1);
-        waves.Add(wave2);
-        waves.Add(wave3);
-        waves.Add(wave4);
-        waves.Add(wave5);
-        waves.Add(wave6);
-        waves.Add(wave7);
-        waves.Add(wave8);
-        waves.Add(wave9);
-        waves.Add(wave10);
+        // waves.Add(wave1);
+        // waves.Add(wave1);
+        // waves.Add(wave1);
+        // waves.Add(wave1);
+        // waves.Add(wave1);
+        // waves.Add(wave1);
+        // waves.Add(wave1);
+        // waves.Add(wave1);
+        // waves.Add(wave1);
 
         StartCoroutine(SpawnWaveRoutine());
     }
@@ -72,16 +85,22 @@ public class WaveManager : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
 
-        if(elapsedTimeSinceLastWave < 20f){
+        if(elapsedTimeSinceLastWave < spawnWaveInterval){
             elapsedTimeSinceLastWave += Time.deltaTime;
         }
         else{
-            elapsedTimeSinceLastWave = 20f;
+            elapsedTimeSinceLastWave = spawnWaveInterval;
         }
         
         timeToNextWave = Mathf.CeilToInt(spawnWaveInterval - elapsedTimeSinceLastWave);
 
-        levelAndWavesText.text = $"Level: {level + 1} Wave: {currentWaveIndex + 1}";
+        if(level <= 3) {
+            levelAndWavesText.text = $"Level: {level + 1} Wave: {currentWaveIndex + 1}";
+        }
+        else{
+            levelAndWavesText.text = $"Infinite Wave: {infiniteCount + 1}";
+        }
+        
         nextWaveText.text = $"Next Wave: {timeToNextWave}s";
         timerText.text = FormatElapsedTime(elapsedTime);
     }
@@ -107,6 +126,21 @@ public class WaveManager : MonoBehaviour
 
             yield return new WaitForSeconds(spawnWaveInterval);
             currentWaveIndex++;
+            if(level > 3){
+                infiniteCount++;
+                if(currentWaveIndex >= waves.Count){
+                    currentWaveIndex = 0;
+                }
+            }
+            if(currentWaveIndex >= waves.Count) {
+                if(level < 3){
+                    _gameManager.levelComplete();
+                }
+                else{
+                    _gameManager.win();
+                }
+                
+            }
         }
     }
 
@@ -131,4 +165,22 @@ public class WaveManager : MonoBehaviour
         int seconds = (int)(time % 60);
         return $"{minutes:00}:{seconds:00}";
     }
+
+    public void nextLevel(){
+        level++;
+        currentWaveIndex = 0;
+        _gameManager.ResumeGame();
+        elapsedTimeSinceLastWave = 10f;
+        StartCoroutine(SpawnWaveRoutine());
+    }
+
+    public void DestroyAllNavMeshAgents()
+    {
+        UnityEngine.AI.NavMeshAgent[] navMeshAgents = GameObject.FindObjectsOfType<UnityEngine.AI.NavMeshAgent>();
+        foreach (UnityEngine.AI.NavMeshAgent agent in navMeshAgents)
+        {
+            Destroy(agent.gameObject);
+        }
+    }
+
 }
