@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4678169689033829994}
   - component: {fileID: 4678169689033829989}
   m_Layer: 0
-  m_Name: Trap
+  m_Name: Bait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,14 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac79dd20dfac60946861692b409f634f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Trap
-  description: Traps are a powerful tool in the player's arsenal, allowing them to
-    lure enemies into a strategic location. However, traps have a risk associated
-    with them as enemies may damage the walls, rendering them useless for future
-    defenses. Therefore, it is important for the player to use traps wisely and consider
-    the trade-off between the potential reward of trapping enemies and the risk of
-    losing valuable wall structures.
+  name: Bait
+  description: Baits are a powerful tool in the player's arsenal, allowing them to
+    lure enemies to a strategic location. However, baits have a risk associated with
+    them as enemies may damage the walls, rendering them useless for future defenses.
+    Therefore, it is important for the player to use baits wisely and consider the
+    trade-off between the potential reward of luring enemies and the risk of losing
+    valuable wall structures. Use your baits strategically to gain the upper hand
+    and emerge victorious in every battle!
   price: 20
   placeablePrice: 20
+  rangeUpgradePrice: 0
+  damageUpgradePrice: 0
+  fireRateUpgradePrice: 0
   image: {fileID: 21300000, guid: 52e4b0a11d70f3a4b975cd5e7c78cee3, type: 3}
   prefab: {fileID: 4394303310616904986, guid: 3110120c87eb5b14c9165da202ab177f, type: 3}

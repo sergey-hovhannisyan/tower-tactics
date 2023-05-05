@@ -45,13 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Cannon
-  description: 'Cannon towers are the most affordable towers in the game. They deal
-    low damage and have a moderate range and fire rate. Therefore, they are the perfect
-    towers for the early game in order to build up your economy. They can also be
-    upgraded five times total in three different categories: range, damage, and fire
-    rate. Your choices in upgrades will have a large role in how effective your tower
-    will be.'
+  description: Start off your defense with the affordable Cannon towers! They deal
+    moderate damage with a moderate range and fire rate, making them the perfect
+    early game choice to build up your economy. Upgrade them up to 5 times across
+    range, damage, and fire rate categories to create a powerful defense. Your choices
+    in upgrades will have a large impact on the effectiveness of your tower, so choose
+    wisely!
   price: 30
   placeablePrice: 30
+  rangeUpgradePrice: 0
+  damageUpgradePrice: 0
+  fireRateUpgradePrice: 0
   image: {fileID: 21300000, guid: ba2bfa4ef0329fe469f743a328ed2e63, type: 3}
   prefab: {fileID: 4530836194441112087, guid: 7b686de43ce36c64384ef75ce21322f1, type: 3}
