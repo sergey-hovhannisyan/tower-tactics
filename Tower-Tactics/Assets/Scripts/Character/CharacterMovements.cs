@@ -93,14 +93,16 @@ public class CharacterMovements : MonoBehaviour
             StartCoroutine(DestroyAfterDelay(3.0f));
         }
 
-        // //makes the charater stop if no path found
+        //makes the charater stop if no path found
         // if(IsAgentOnNavMesh()){
         //     if (agent.pathStatus == NavMeshPathStatus.PathPartial || agent.pathStatus == NavMeshPathStatus.PathInvalid){
         //         agent.isStopped = true;
         //         isMoving = false;
         //         isAttacking = true;
+        //         gameManager.pathIsClear = false;
         //     }
         //     else{
+        //         gameManager.pathIsClear = true;
         //         agent.isStopped = false;
         //         isMoving = true;
         //         isAttacking = false;
@@ -128,6 +130,7 @@ public class CharacterMovements : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
+        //_waveManager.DestroyEenmy(gameObject);
     }
 
     private bool IsAgentOnNavMesh()
