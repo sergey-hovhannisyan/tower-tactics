@@ -155,8 +155,67 @@ public class ShopManager : MonoBehaviour
 
     public bool CanAffordRangeUpgrade(int index)
     {
-        if (index >= 0 && index < _numberOfSelected)
+         if (index >= 0 && index < _numberOfSelected)
+         {
             return coins >= _selectedItems[index].rangeUpgradePrice;
+         }
+        return false;
+    }
+
+    public bool PurchaseRangeUpgrade(String name) {
+        for (int i = 0; i < maxNumberOfSelected; i++)
+            {
+                if (_selectedItems[i].name == name && CanAffordRangeUpgrade(i)){
+                    coins -= _selectedItems[i].rangeUpgradePrice;
+                    coinsTxt.text = coins.ToString();
+                    _audioManager.PlayUpgradeSound();
+                    return true;
+                }
+            }
+            return false;
+    }
+
+    public bool CanAffordDamageUpgrade(int index)
+    {
+        if (index >= 0 && index < _numberOfSelected)
+        {
+            return coins >= _selectedItems[index].damageUpgradePrice;
+        }
+        return false;
+    }
+
+    public bool PurchaseDamageUpgrade(String name) {
+        for (int i = 0; i < maxNumberOfSelected; i++)
+        {
+            if (_selectedItems[i].name == name && CanAffordDamageUpgrade(i)) {
+                coins -= _selectedItems[i].damageUpgradePrice;
+                coinsTxt.text = coins.ToString();
+                _audioManager.PlayUpgradeSound();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool CanAffordFireRateUpgrade(int index)
+    {
+        if (index >= 0 && index < _numberOfSelected) 
+        {
+            return coins >= _selectedItems[index].fireRateUpgradePrice;
+        }
+        return false;
+    }
+
+    public bool PurchaseFireRateUpgrade(String name) {
+        for (int i = 0; i < maxNumberOfSelected; i++)
+            {
+                if (_selectedItems[i].name == name && CanAffordFireRateUpgrade(i)){
+                    coins -= _selectedItems[i].fireRateUpgradePrice;
+                    coinsTxt.text = coins.ToString();
+                    _audioManager.PlayUpgradeSound();
+                    return true;
+                }
+            }
         return false;
     }
 

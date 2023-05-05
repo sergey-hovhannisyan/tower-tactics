@@ -18,6 +18,7 @@ public class CharacterHealth : MonoBehaviour
         if (other.CompareTag("Bullet")){
             bullet = other.gameObject.GetComponent<Bullet>();
             currentHealth-= bullet.damage;
+            Destroy(other.gameObject);
             checkIfDead();
         }
     }

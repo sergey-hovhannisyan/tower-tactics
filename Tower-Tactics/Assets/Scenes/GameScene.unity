@@ -23820,7 +23820,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446948541576274559}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!1 &446948541576274559
 GameObject:
   m_ObjectHideFlags: 0
@@ -25060,6 +25060,8 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 60618ca34846ea142b885f4e888e1049, type: 3}
   - clipName: WrongBuzzNoMoney
     audioClip: {fileID: 8300000, guid: f302775bef718954986afc427cb47c98, type: 3}
+  - clipName: upgradeSound
+    audioClip: {fileID: 8300000, guid: 9342b33b05c959b48926c75b0e5c58bc, type: 3}
 --- !u!114 &8154573695053373098
 MonoBehaviour:
   m_ObjectHideFlags: 0

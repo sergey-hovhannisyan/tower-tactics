@@ -9,7 +9,7 @@ public class ParticleSystemController : MonoBehaviour
     private bool isPlaying;
 
     public AudioClip audioClip;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     private void Start()
     {

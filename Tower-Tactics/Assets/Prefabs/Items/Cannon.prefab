@@ -53,8 +53,8 @@ MonoBehaviour:
     wisely!
   price: 30
   placeablePrice: 30
-  rangeUpgradePrice: 0
-  damageUpgradePrice: 0
-  fireRateUpgradePrice: 0
+  rangeUpgradePrice: 10
+  damageUpgradePrice: 20
+  fireRateUpgradePrice: 20
   image: {fileID: 21300000, guid: ba2bfa4ef0329fe469f743a328ed2e63, type: 3}
   prefab: {fileID: 4530836194441112087, guid: 7b686de43ce36c64384ef75ce21322f1, type: 3}

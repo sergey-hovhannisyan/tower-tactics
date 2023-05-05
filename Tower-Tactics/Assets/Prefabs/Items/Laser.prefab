@@ -52,8 +52,8 @@ MonoBehaviour:
     larger health pools and making short work of even the toughest foes.
   price: 100
   placeablePrice: 100
-  rangeUpgradePrice: 0
-  damageUpgradePrice: 0
-  fireRateUpgradePrice: 0
+  rangeUpgradePrice: 20
+  damageUpgradePrice: 30
+  fireRateUpgradePrice: 30
   image: {fileID: 21300000, guid: 52006896c82444c4891fae075922f923, type: 3}
   prefab: {fileID: 7259668483944600303, guid: ae5fe4bfb82414c47bb4b12878d134da, type: 3}

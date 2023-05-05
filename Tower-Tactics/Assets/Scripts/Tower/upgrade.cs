@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class upgrade : MonoBehaviour
+public class Upgrade : MonoBehaviour
 {
     private int numOfUpgrades = 0;
     public int maxUpgrades = 5;
