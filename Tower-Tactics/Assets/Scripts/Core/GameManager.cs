@@ -60,10 +60,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void StartGame(TMP_Text errorMessage)
     {
         if (_shopManager.GetNumberOfSelectedItems() == 0) { 
-            homeErrorMessage.SetActive(true);
+            errorMessage.text = "You must select at least one item!";
+            //homeErrorMessage.SetActive(true);
             return;}
         Debug.Log("Number of selected items: " + _shopManager.GetNumberOfSelectedItems());
         ResumeGame();

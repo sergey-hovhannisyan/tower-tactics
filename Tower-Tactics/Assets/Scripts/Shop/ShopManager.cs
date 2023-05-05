@@ -54,6 +54,14 @@ public class ShopManager : MonoBehaviour
     {
         if (gems >= item.price)
         {
+            if (item.isGold)
+            {
+                coins += item.placeablePrice;
+                coinsTxt.text = coins.ToString();
+                _audioManager.PlayUnlockGold();
+            }
+            else
+                _audioManager.PlayUnlockItem();
             gems -= item.price;
             item.unlocked = true;
             gemsTxt.text = gems.ToString();

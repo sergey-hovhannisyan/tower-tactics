@@ -33,6 +33,16 @@ public class AudioManager : MonoBehaviour
         PlayParallelAudioClip(2);
     }
 
+    public void PlayUnlockGold()
+    {
+        PlayParallelAudioClip(3);
+    }
+
+    public void PlayUnlockItem()
+    {
+        PlayParallelAudioClip(4);
+    }
+
     private void PlayAudioClip(int clipIndex, bool loop)
     {
         if (_isMainAudioSourcePaused)
