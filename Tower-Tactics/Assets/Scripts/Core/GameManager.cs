@@ -56,10 +56,10 @@ public class GameManager : MonoBehaviour
         ResumeGame();
         _audioManager.PlayGameBackgroundMusic();
         isPaused = false;
-        elapsedTime = 0f;
-        enemiesSpawnedInCurrentWave = 0;
-        StartCoroutine(SpawnEnemyRoutine());
-        _shopManager.RenderSelectedItems();
+        // elapsedTime = 0f;
+        // enemiesSpawnedInCurrentWave = 0;
+        // StartCoroutine(SpawnEnemyRoutine());
+        //_shopManager.RenderSelectedItems();
     }
 
     public void QuitGame()

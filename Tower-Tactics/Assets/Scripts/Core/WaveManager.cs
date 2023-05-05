@@ -10,89 +10,105 @@ public class WaveManager : MonoBehaviour
         public int enemyCount;
         public int fastCount;
         public int heavyCount;
-        public int enemySpawned = 0;
-        public int fastSpawned = 0;
-        public int heavySpawned = 0;
     }
 
-    #region  Enemy Properties
+    #region Enemy Properties
     public GameObject enemyPrefab;
     public GameObject fastPrefab;
     public GameObject heavyPrefab;
-    public Transform startpoint;
-    public Transform endpoint;
-    public float spawnEnemyInterval = 0.5f;
-    public float spawnWaveInterval = 15.0f;
+    public Transform startPoint;
+    public Transform endPoint;
     public List<Wave> waves;
+    public float spawnEnemyInterval = 1.0f;
+    public float spawnFastInterval = 0.5f;
+    public float spawnHeavyInterval = 3f;
+    public float spawnWaveInterval = 20.0f;
+    public float[] levelDifficulties = { 1f, 1.5f, 2f, 4f };
 
-    private float elapsedTime;
-    private int enemiesSpawnedInCurrentWave;
-    private int currentWave;
+    public int level = 0;
+    public int currentWaveIndex = 0;
+    public float timeToNextWave = 0;
+
+    private float elapsedTimeSinceLastWave;
     #endregion
 
-    // Start is called before the first frame update
     void Start()
     {
-        elapsedTime = 0f;
-        enemiesSpawnedInCurrentWave = 0;
-        currentWave = 0;
-        StartCoroutine(SpawnEnemyRoutine());
+        elapsedTimeSinceLastWave = 10f;
+
+        Wave wave1 = new Wave { enemyCount = 6, fastCount = 0, heavyCount = 0 };
+        Wave wave2 = new Wave { enemyCount = 12, fastCount = 0, heavyCount = 0 };
+        Wave wave3 = new Wave { enemyCount = 0, fastCount = 12, heavyCount = 0 };
+        Wave wave4 = new Wave { enemyCount = 12, fastCount = 24, heavyCount = 0 };
+        Wave wave5 = new Wave { enemyCount = 0, fastCount = 0, heavyCount = 3 };
+        Wave wave6 = new Wave { enemyCount = 12, fastCount = 0, heavyCount = 3 };
+        Wave wave7 = new Wave { enemyCount = 12, fastCount = 24, heavyCount = 3 };
+        Wave wave8 = new Wave { enemyCount = 24, fastCount = 48, heavyCount = 6 };
+        Wave wave9 = new Wave { enemyCount = 36, fastCount = 72, heavyCount = 9 };
+        Wave wave10 = new Wave { enemyCount = 48, fastCount = 96, heavyCount = 12 };
+
+        waves.Add(wave1);
+        waves.Add(wave2);
+        waves.Add(wave3);
+        waves.Add(wave4);
+        waves.Add(wave5);
+        waves.Add(wave6);
+        waves.Add(wave7);
+        waves.Add(wave8);
+        waves.Add(wave9);
+        waves.Add(wave10);
+
+        StartCoroutine(SpawnWaveRoutine());
     }
 
-    #region Waves Control Methods
-    // Spawns a wave of enemies
-    private IEnumerator SpawnEnemyRoutine()
+    void Update()
     {
-        while (currentWave < waves.Count)
-        {
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= spawnEnemyInterval)
-            {
-                elapsedTime = 0f;
-
-                if (enemiesSpawnedInCurrentWave < waves[currentWave].enemyCount + waves[currentWave].fastCount + waves[currentWave].heavyCount)
-                {
-                    SpawnEnemy();
-                    enemiesSpawnedInCurrentWave++;
-                }
-                else
-                {
-                    yield return new WaitForSeconds(spawnWaveInterval);
-                    enemiesSpawnedInCurrentWave = 0;
-                    currentWave++;
-                }
-            }
-            yield return null;
+        if(elapsedTimeSinceLastWave < 20f){
+            elapsedTimeSinceLastWave += Time.deltaTime;
         }
-    }
-
-    private void SpawnEnemy()
-    {
-        GameObject prefabToSpawn = null;
-
+        else{
+            elapsedTimeSinceLastWave = 20f;
+        }
         
-        if (waves[currentWave].fastCount > waves[currentWave].fastSpawned)
-        {
-            prefabToSpawn = fastPrefab;
-            waves[currentWave].fastSpawned++;
-        }
-        else if (waves[currentWave].enemyCount > waves[currentWave].enemySpawned)
-        {
-            prefabToSpawn = enemyPrefab;
-            waves[currentWave].enemySpawned++;
-        }
-        else if (waves[currentWave].heavyCount > waves[currentWave].heavySpawned)
-        {
-            prefabToSpawn = heavyPrefab;
-            waves[currentWave].heavySpawned++;
-        }
+        timeToNextWave = spawnWaveInterval - elapsedTimeSinceLastWave;
+    }
 
-        if (prefabToSpawn != null)
+    private IEnumerator SpawnWaveRoutine()
+    {
+        yield return new WaitForSeconds(10f);
+        while (currentWaveIndex < waves.Count)
         {
-            GameObject newEnemy = Instantiate(prefabToSpawn, startpoint.position, Quaternion.identity);
-            newEnemy.GetComponent<CharacterMovements>().endpoint = endpoint;
+            Wave currentWave = waves[currentWaveIndex];
+
+            // Start spawn routines for each enemy type concurrently
+            Coroutine enemyRoutine = StartCoroutine(SpawnEnemiesOfType(enemyPrefab, currentWave.enemyCount * levelDifficulties[level], spawnEnemyInterval));
+            Coroutine fastRoutine = StartCoroutine(SpawnEnemiesOfType(fastPrefab, currentWave.fastCount * levelDifficulties[level], spawnFastInterval));
+            Coroutine heavyRoutine = StartCoroutine(SpawnEnemiesOfType(heavyPrefab, currentWave.heavyCount * levelDifficulties[level], spawnHeavyInterval));
+
+            // Wait for all enemy types spawn routines to complete
+            yield return enemyRoutine;
+            yield return fastRoutine;
+            yield return heavyRoutine;
+
+            elapsedTimeSinceLastWave = 0f;
+
+            yield return new WaitForSeconds(spawnWaveInterval);
+            currentWaveIndex++;
         }
     }
 
-    #endregion
+    private IEnumerator SpawnEnemiesOfType(GameObject prefab, float count, float interval)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            yield return new WaitForSeconds(interval);
+            SpawnEnemy(prefab);
+        }
+    }
+
+    private void SpawnEnemy(GameObject prefab)
+    {
+        GameObject newEnemy = Instantiate(prefab, startPoint.position, Quaternion.identity);
+        newEnemy.GetComponent<CharacterMovements>().endpoint = endPoint;
+    }
 }

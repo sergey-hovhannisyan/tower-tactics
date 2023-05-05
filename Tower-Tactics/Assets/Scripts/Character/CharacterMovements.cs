@@ -51,6 +51,20 @@ public class CharacterMovements : MonoBehaviour
         if (Vector3.Distance(transform.position, endpoint.position) < 0.5f){
             Destroy(gameObject);
         }
+
+        // //makes the charater stop if no path found
+        // if(IsAgentOnNavMesh()){
+        //     if (agent.pathStatus == NavMeshPathStatus.PathPartial || agent.pathStatus == NavMeshPathStatus.PathInvalid){
+        //         agent.isStopped = true;
+        //         isMoving = false;
+        //         isAttacking = true;
+        //     }
+        //     else{
+        //         agent.isStopped = false;
+        //         isMoving = true;
+        //         isAttacking = false;
+        //     }
+        // }
     }
 
     private IEnumerator ChangeCapsuleColliderHeight(float targetHeight, float duration)
@@ -73,6 +87,12 @@ public class CharacterMovements : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
+    }
+
+    private bool IsAgentOnNavMesh()
+    {
+        NavMeshHit hit;
+        return NavMesh.SamplePosition(agent.transform.position, out hit, 1f, NavMesh.AllAreas);
     }
 
 }

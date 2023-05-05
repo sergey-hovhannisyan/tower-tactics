@@ -7183,44 +7183,42 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2977577819232278436, guid: 6f2dc78eb3e5a0043b1eadb7ae8c6787, type: 3}
   fastPrefab: {fileID: 2977577819232278436, guid: 20ee3848c67a1ad48b95f76dd8be71bb, type: 3}
   heavyPrefab: {fileID: 2977577819232278436, guid: 069315eb0b7e7ca4bbd36964347f6047, type: 3}
-  startpoint: {fileID: 1070054844}
-  endpoint: {fileID: 2045175286}
-  spawnEnemyInterval: 0.5
-  spawnWaveInterval: 15
+  startPoint: {fileID: 1070054844}
+  endPoint: {fileID: 2045175286}
   waves:
-  - enemyCount: 5
+  - enemyCount: 6
     fastCount: 0
     heavyCount: 0
-    enemySpawned: 0
-    fastSpawned: 0
-    heavySpawned: 0
-  - enemyCount: 10
+  - enemyCount: 12
     fastCount: 0
     heavyCount: 0
-    enemySpawned: 0
-    fastSpawned: 0
-    heavySpawned: 0
-  - enemyCount: 5
-    fastCount: 5
+  - enemyCount: 0
+    fastCount: 12
     heavyCount: 0
-    enemySpawned: 0
-    fastSpawned: 0
-    heavySpawned: 0
-  - enemyCount: 10
-    fastCount: 10
+  - enemyCount: 12
+    fastCount: 24
     heavyCount: 0
-    enemySpawned: 0
-    fastSpawned: 0
-    heavySpawned: 0
-  - enemyCount: 5
-    fastCount: 5
-    heavyCount: 1
-    enemySpawned: 0
-    fastSpawned: 0
-    heavySpawned: 0
-  - enemyCount: 5
-    fastCount: 5
-    heavyCount: 5
-    enemySpawned: 0
-    fastSpawned: 0
-    heavySpawned: 0
+  - enemyCount: 0
+    fastCount: 0
+    heavyCount: 3
+  - enemyCount: 12
+    fastCount: 0
+    heavyCount: 3
+  - enemyCount: 12
+    fastCount: 24
+    heavyCount: 3
+  - enemyCount: 24
+    fastCount: 48
+    heavyCount: 6
+  - enemyCount: 36
+    fastCount: 72
+    heavyCount: 9
+  - enemyCount: 48
+    fastCount: 96
+    heavyCount: 12
+  spawnEnemyInterval: 1
+  spawnFastInterval: 0.5
+  spawnHeavyInterval: 3
+  spawnWaveInterval: 15
+  level: 0
+  currentWaveIndex: 0
