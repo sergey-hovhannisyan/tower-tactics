@@ -125,11 +125,12 @@ public class GameManager : MonoBehaviour
     #region Private: GridCell Methods
 
     // Drops a tower into a cell
-    private void PlaceOjbectInCell(GridCell cell)
+        private void PlaceOjbectInCell(GridCell cell)
     {
         if (_selectedObjectPrefab && !cell.isOccupied)
         {
-            if (!_shopManager.CanAffordItem(_itemNumber)) { 
+            pathIsClear = _waveManager.IsPathClearForAllAgents(cell);
+            if (!_shopManager.CanAffordItem(_itemNumber) || !pathIsClear) { 
                 _audioManager.PlayErrorSound();
                 Debug.Log("Inside if statement in PlaceObjectInCell()");
                 return;}
@@ -140,11 +141,27 @@ public class GameManager : MonoBehaviour
             cell.itemID = _itemNumber;
             pathIsClear = true;
         }
-        pathIsClear = _waveManager.IsPathClearForAllAgents(cell);
-
-        if (!pathIsClear)
-            RemoveObjectFromCell(cell);
     }
+    // private void PlaceOjbectInCell(GridCell cell)
+    // {
+    //     if (_selectedObjectPrefab && !cell.isOccupied)
+    //     {
+    //         if (!_shopManager.CanAffordItem(_itemNumber)) { 
+    //             _audioManager.PlayErrorSound();
+    //             Debug.Log("Inside if statement in PlaceObjectInCell()");
+    //             return;}
+    //         _shopManager.PurchasePlaceableItem(_itemNumber);
+    //         GameObject newTower = Instantiate(_selectedObjectPrefab, cell.transform.position, Quaternion.identity);
+    //         cell.objectInThisGridSpace = newTower;
+    //         cell.isOccupied = true;
+    //         cell.itemID = _itemNumber;
+    //         pathIsClear = true;
+    //     }
+    //     pathIsClear = _waveManager.IsPathClearForAllAgents(cell);
+
+    //     if (!pathIsClear)
+    //         RemoveObjectFromCell(cell);
+    // }
     
     // Removes a object from a cell
     private void RemoveObjectFromCell(GridCell cell)

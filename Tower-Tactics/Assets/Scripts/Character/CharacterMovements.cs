@@ -94,20 +94,20 @@ public class CharacterMovements : MonoBehaviour
         }
 
         //makes the charater stop if no path found
-        if(IsAgentOnNavMesh()){
-            if (agent.pathStatus == NavMeshPathStatus.PathPartial || agent.pathStatus == NavMeshPathStatus.PathInvalid){
-                agent.isStopped = true;
-                isMoving = false;
-                isAttacking = true;
-                gameManager.pathIsClear = false;
-            }
-            else{
-                gameManager.pathIsClear = true;
-                agent.isStopped = false;
-                isMoving = true;
-                isAttacking = false;
-            }
-        }
+        // if(IsAgentOnNavMesh()){
+        //     if (agent.pathStatus == NavMeshPathStatus.PathPartial || agent.pathStatus == NavMeshPathStatus.PathInvalid){
+        //         agent.isStopped = true;
+        //         isMoving = false;
+        //         isAttacking = true;
+        //         gameManager.pathIsClear = false;
+        //     }
+        //     else{
+        //         gameManager.pathIsClear = true;
+        //         agent.isStopped = false;
+        //         isMoving = true;
+        //         isAttacking = false;
+        //     }
+        // }
     }
 
     private IEnumerator ChangeCapsuleColliderHeight(float targetHeight, float duration)
