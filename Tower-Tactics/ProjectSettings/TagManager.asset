@@ -16,6 +16,7 @@ TagManager:
   - Event
   - Core
   - InfoTab
+  - Bait
   layers:
   - Default
   - TransparentFX

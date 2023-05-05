@@ -16,6 +16,7 @@ public class WaveManager : MonoBehaviour
 
     #region Enemy Properties
     private GameManager _gameManager;
+    private ShopManager _shopManager;
     public GameObject enemyPrefab;
     public GameObject fastPrefab;
     public GameObject heavyPrefab;
@@ -46,6 +47,7 @@ public class WaveManager : MonoBehaviour
         StopAllCoroutines();
         DestroyAllNavMeshAgents();
         _gameManager = gameObject.GetComponent<GameManager>();
+        _shopManager = gameObject.GetComponent<ShopManager>();
 
         _gameManager.lives = 20;
         elapsedTimeSinceLastWave = 10f;
@@ -68,15 +70,15 @@ public class WaveManager : MonoBehaviour
         Wave wave10 = new Wave { enemyCount = 48, fastCount = 96, heavyCount = 12 };
 
         waves.Add(wave1);
-        waves.Add(wave2);
-        waves.Add(wave3);
-        waves.Add(wave4);
-        waves.Add(wave5);
-        waves.Add(wave6);
-        waves.Add(wave7);
-        waves.Add(wave8);
-        waves.Add(wave9);
-        waves.Add(wave10);
+        // waves.Add(wave2);
+        // waves.Add(wave3);
+        // waves.Add(wave4);
+        // waves.Add(wave5);
+        // waves.Add(wave6);
+        // waves.Add(wave7);
+        // waves.Add(wave8);
+        // waves.Add(wave9);
+        // waves.Add(wave10);
 
         StartCoroutine(SpawnWaveRoutine());
     }
@@ -172,6 +174,7 @@ public class WaveManager : MonoBehaviour
         _gameManager.ResumeGame();
         elapsedTimeSinceLastWave = 10f;
         StartCoroutine(SpawnWaveRoutine());
+        _shopManager.addGem(20);
     }
 
     public void DestroyAllNavMeshAgents()

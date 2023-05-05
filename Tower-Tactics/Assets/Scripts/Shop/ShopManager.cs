@@ -242,4 +242,14 @@ public class ShopManager : MonoBehaviour
     {
         return _numberOfSelected;
     }
+
+    public void addMoney(int money){
+        coins += money;
+        coinsTxt.text = coins.ToString();
+    }
+
+    public void addGem(int gemToAdd){
+        gems += gemToAdd;
+        gemsTxt.text = gems.ToString();
+    }
 }
