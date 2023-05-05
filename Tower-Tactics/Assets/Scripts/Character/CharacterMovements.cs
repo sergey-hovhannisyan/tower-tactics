@@ -10,8 +10,10 @@ public class CharacterMovements : MonoBehaviour
     private float rotationSpeed = 720.0f;
     private float remainingDistanceThreshold = 0.5f;
     public int livesCost = 1;
+    public int money = 10;
 
     private GameManager gameManager;
+    private ShopManager shopManager;
     public NavMeshAgent agent;
     public Transform endpoint;
     private Rigidbody rb;
@@ -31,6 +33,7 @@ public class CharacterMovements : MonoBehaviour
     private void Start()
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
+        shopManager = GameObject.FindObjectOfType<ShopManager>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -43,11 +46,25 @@ public class CharacterMovements : MonoBehaviour
         if (agent.enabled && endpoint != null){
             NavMeshHit hit;
             if (NavMesh.SamplePosition(agent.transform.position, out hit, agent.height * 2f, NavMesh.AllAreas)){
-                agent.SetDestination(endpoint.position);
-                if (!agent.pathPending && agent.remainingDistance <= remainingDistanceThreshold){
-                    gameManager.subtractlives(livesCost);
-                    Destroy(gameObject);
+
+                GameObject bait = GameObject.FindWithTag("Bait");
+                if (bait != null){
+                    agent.SetDestination(bait.transform.position);
                 }
+                else{
+                    agent.SetDestination(endpoint.position);
+                }
+
+                if (!agent.pathPending && agent.remainingDistance <= remainingDistanceThreshold){
+                    if(bait!=null){
+                        Destroy(bait);
+                    }
+                    else{
+                        gameManager.subtractlives(livesCost);
+                        Destroy(gameObject);
+                    }
+                }
+                
             }
             else{
                 Debug.LogWarning("Agent is not on a valid NavMesh.");
@@ -70,6 +87,7 @@ public class CharacterMovements : MonoBehaviour
             if(!deathSoundPlayed){
                 PlayDeathSound();
                 deathSoundPlayed = true;
+                shopManager.addMoney(money);
             }
             
             deathCoroutine = StartCoroutine(ChangeCapsuleColliderHeight(0.9f, 2.3f));
