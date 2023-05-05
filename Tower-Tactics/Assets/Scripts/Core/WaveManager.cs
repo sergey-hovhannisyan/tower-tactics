@@ -29,10 +29,12 @@ public class WaveManager : MonoBehaviour
 
     public TextMeshProUGUI  levelAndWavesText;
     public TextMeshProUGUI  nextWaveText;
+    public TextMeshProUGUI  timerText;
 
     public int level = 0;
     public int currentWaveIndex = 0;
     public int timeToNextWave = 0;
+    private float elapsedTime = 0f;
 
     private float elapsedTimeSinceLastWave;
     #endregion
@@ -68,6 +70,8 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
+        elapsedTime += Time.deltaTime;
+
         if(elapsedTimeSinceLastWave < 20f){
             elapsedTimeSinceLastWave += Time.deltaTime;
         }
@@ -78,7 +82,8 @@ public class WaveManager : MonoBehaviour
         timeToNextWave = Mathf.CeilToInt(spawnWaveInterval - elapsedTimeSinceLastWave);
 
         levelAndWavesText.text = $"Level: {level + 1} Wave: {currentWaveIndex + 1}";
-        nextWaveText.text = $"Next Wave Coming in: {timeToNextWave}s";
+        nextWaveText.text = $"Next Wave: {timeToNextWave}s";
+        timerText.text = FormatElapsedTime(elapsedTime);
     }
 
     private IEnumerator SpawnWaveRoutine()
@@ -118,5 +123,12 @@ public class WaveManager : MonoBehaviour
     {
         GameObject newEnemy = Instantiate(prefab, startPoint.position, Quaternion.identity);
         newEnemy.GetComponent<CharacterMovements>().endpoint = endPoint;
+    }
+
+    private string FormatElapsedTime(float time)
+    {
+        int minutes = (int)(time / 60);
+        int seconds = (int)(time % 60);
+        return $"{minutes:00}:{seconds:00}";
     }
 }

@@ -9,7 +9,9 @@ public class CharacterMovements : MonoBehaviour
     private float movementThreshold = 0.01f;
     private float rotationSpeed = 720.0f;
     private float remainingDistanceThreshold = 0.5f;
+    public int livesCost = 1;
 
+    private GameManager gameManager;
     public NavMeshAgent agent;
     public Transform endpoint;
     private Rigidbody rb;
@@ -28,6 +30,7 @@ public class CharacterMovements : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -42,6 +45,7 @@ public class CharacterMovements : MonoBehaviour
             if (NavMesh.SamplePosition(agent.transform.position, out hit, agent.height * 2f, NavMesh.AllAreas)){
                 agent.SetDestination(endpoint.position);
                 if (!agent.pathPending && agent.remainingDistance <= remainingDistanceThreshold){
+                    gameManager.subtractlives(livesCost);
                     Destroy(gameObject);
                 }
             }

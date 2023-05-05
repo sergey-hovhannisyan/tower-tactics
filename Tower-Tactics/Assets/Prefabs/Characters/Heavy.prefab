@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627c95137bcc7ac499eb07b9416dfd5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  livesCost: 2
   agent: {fileID: 2535115522148083549}
   endpoint: {fileID: 0}
   isMoving: 1
