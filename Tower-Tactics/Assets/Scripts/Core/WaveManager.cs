@@ -72,11 +72,11 @@ public class WaveManager : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
 
-        if(elapsedTimeSinceLastWave < 20f){
+        if(elapsedTimeSinceLastWave < spawnWaveInterval){
             elapsedTimeSinceLastWave += Time.deltaTime;
         }
         else{
-            elapsedTimeSinceLastWave = 20f;
+            elapsedTimeSinceLastWave = spawnWaveInterval;
         }
         
         timeToNextWave = Mathf.CeilToInt(spawnWaveInterval - elapsedTimeSinceLastWave);
