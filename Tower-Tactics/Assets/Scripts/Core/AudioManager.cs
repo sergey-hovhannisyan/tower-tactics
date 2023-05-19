@@ -43,6 +43,11 @@ public class AudioManager : MonoBehaviour
         PlayParallelAudioClip(4);
     }
 
+    public void PlayDestroySound()
+    {
+        PlayParallelAudioClip(5);
+    }
+
     private void PlayAudioClip(int clipIndex, bool loop)
     {
         if (_isMainAudioSourcePaused)

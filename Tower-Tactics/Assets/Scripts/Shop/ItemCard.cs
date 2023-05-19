@@ -36,6 +36,8 @@ public class ItemCard : MonoBehaviour
     {
         if (_shopManager.Unlock(_item))
         {
+            if (_item.isGold)
+                return;
             backgroundImage.GetComponent<Image>().color = new Color32(21, 96, 99, 255);
             unlockButton.SetActive(false);
             selectButton.SetActive(true);

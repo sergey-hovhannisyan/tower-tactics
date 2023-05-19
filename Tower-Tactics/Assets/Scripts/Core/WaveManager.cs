@@ -188,16 +188,42 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    // public bool IsPathClearForAllAgents(GridCell cell)
+    // {
+    //     UnityEngine.AI.NavMeshAgent[] navMeshAgents = GameObject.FindObjectsOfType<UnityEngine.AI.NavMeshAgent>();
+    //     foreach (UnityEngine.AI.NavMeshAgent agent in navMeshAgents)
+    //     {
+    //         UnityEngine.AI.NavMeshPath path = new UnityEngine.AI.NavMeshPath();
+    //         if (agent.CalculatePath(cell.transform.position, path))
+    //         {
+    //             UnityEngine.AI.NavMeshHit hit;
+    //             if (UnityEngine.AI.NavMesh.SamplePosition(cell.transform.position, out hit, 1.0f, UnityEngine.AI.NavMesh.AllAreas))
+    //             {
+    //                 if (path.status == UnityEngine.AI.NavMeshPathStatus.PathPartial || path.status == UnityEngine.AI.NavMeshPathStatus.PathInvalid)
+    //                 {
+    //                     return false;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return true;
+    // }
+
     public bool IsPathClearForAllAgents(GridCell cell)
     {
         UnityEngine.AI.NavMeshAgent[] navMeshAgents = GameObject.FindObjectsOfType<UnityEngine.AI.NavMeshAgent>();
         foreach (UnityEngine.AI.NavMeshAgent agent in navMeshAgents)
         {
-            UnityEngine.AI.NavMeshPath path = new UnityEngine.AI.NavMeshPath();
-            if (agent.CalculatePath(cell.transform.position, path))
+            // if (!agent.isOnNavMesh)
+            // {
+            //     Debug.Log("Agent not on navmesh");
+            //     Debug.Log(agent.gameObject.name);
+            // }
+
+            if (agent.isActiveAndEnabled && agent.isOnNavMesh)
             {
-                UnityEngine.AI.NavMeshHit hit;
-                if (UnityEngine.AI.NavMesh.SamplePosition(cell.transform.position, out hit, 1.0f, UnityEngine.AI.NavMesh.AllAreas))
+                UnityEngine.AI.NavMeshPath path = new UnityEngine.AI.NavMeshPath();
+                if (agent.CalculatePath(cell.transform.position, path))
                 {
                     if (path.status == UnityEngine.AI.NavMeshPathStatus.PathPartial || path.status == UnityEngine.AI.NavMeshPathStatus.PathInvalid)
                     {
@@ -207,6 +233,33 @@ public class WaveManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public bool IsPathClearForAllAgents()
+    {
+        UnityEngine.AI.NavMeshAgent[] navMeshAgents = GameObject.FindObjectsOfType<UnityEngine.AI.NavMeshAgent>();
+        foreach (UnityEngine.AI.NavMeshAgent agent in navMeshAgents)
+        {
+            if (agent.isActiveAndEnabled)
+            {
+                UnityEngine.AI.NavMeshPath path = new UnityEngine.AI.NavMeshPath();
+                if (path.status == UnityEngine.AI.NavMeshPathStatus.PathInvalid)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public void UpdatePathForAllAgents()
+    {
+        UnityEngine.AI.NavMeshAgent[] navMeshAgents = GameObject.FindObjectsOfType<UnityEngine.AI.NavMeshAgent>();
+        foreach (UnityEngine.AI.NavMeshAgent agent in navMeshAgents)
+        {
+            if (agent.isActiveAndEnabled)
+            {
+                agent.ResetPath();
+            }
+        }
     }
 }
 

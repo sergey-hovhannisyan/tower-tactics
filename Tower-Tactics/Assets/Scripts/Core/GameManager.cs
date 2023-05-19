@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
         _waveManager.level = 0;
         if (_shopManager.GetNumberOfSelectedTowers() == 0) { 
             errorMessage.text = "No Towers Selected!";
+            StartCoroutine(ShowMessageTemporarily(errorMessage, "No Towers Selected!", 2f));
             //homeErrorMessage.SetActive(true);
             return;}
         errorMessage.text = "";
@@ -84,6 +85,13 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(SpawnEnemyRoutine());
         _shopManager.RenderSelectedItems();
         _shopManager.StartGame();
+    }
+
+    IEnumerator ShowMessageTemporarily(TMP_Text errorMessage, string message, float duration)
+    {
+        errorMessage.text = message;
+        yield return new WaitForSecondsRealtime(duration);
+        errorMessage.text = "";
     }
 
     public void QuitGame()
@@ -129,8 +137,7 @@ public class GameManager : MonoBehaviour
     {
         if (_selectedObjectPrefab && !cell.isOccupied)
         {
-            pathIsClear = _waveManager.IsPathClearForAllAgents(cell);
-            if (!_shopManager.CanAffordItem(_itemNumber) || !pathIsClear) { 
+            if (!_shopManager.CanAffordItem(_itemNumber)) { 
                 _audioManager.PlayErrorSound();
                 Debug.Log("Inside if statement in PlaceObjectInCell()");
                 return;
@@ -191,8 +198,16 @@ public class GameManager : MonoBehaviour
             GridCell cell = raycastHit.collider.GetComponent<GridCell>();
             if (_clearSelected)
                 RemoveObjectFromCell(cell);
-            if(_objectSelected)
+            else if(_objectSelected)
+            {
                 PlaceOjbectInCell(cell);
+                // if (cell.isOccupied && !_waveManager.IsPathClearForAllAgents())
+                // {
+                //     _audioManager.PlayDestroySound();
+                //     Debug.Log("Path is not clear");
+                //     RemoveObjectFromCell(cell);
+                // }
+            }     
         }
         else
            DeselectEverything();

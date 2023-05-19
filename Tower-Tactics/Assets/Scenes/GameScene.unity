@@ -19113,7 +19113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361449916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.4, y: 0, z: 5.1}
+  m_LocalPosition: {x: -21.25, y: 0, z: 3.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28916,8 +28916,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446948541445824901}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2786, y: -0, z: -0.5}
-  m_LocalScale: {x: 4.6434474, y: 1, z: 1.5193846}
+  m_LocalPosition: {x: 0, y: -0, z: -0.5}
+  m_LocalScale: {x: 4.6434474, y: 1, z: 1.7276472}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8154573695053373094}
@@ -28953,7 +28953,7 @@ GameObject:
   m_Name: Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 2
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &446948541445824902
@@ -30350,6 +30350,8 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 04a1ee55a4136514196170b5215a283d, type: 3}
   - clipName: UnlockItem
     audioClip: {fileID: 8300000, guid: c1e8f65bb1f9a554db73b4ce9f145948, type: 3}
+  - clipName: DestroyPlacedObject
+    audioClip: {fileID: 8300000, guid: d327ba3b0fce21e409ce8a84821833d5, type: 3}
 --- !u!114 &8154573695053373098
 MonoBehaviour:
   m_ObjectHideFlags: 0

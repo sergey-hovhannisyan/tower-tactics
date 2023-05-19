@@ -59,6 +59,11 @@ public class ShopManager : MonoBehaviour
 
     public bool Unlock(Item item)
     {
+        if (item.isGold && !IsTowerSelected())
+        {
+            StartCoroutine(ShowMessageTemporarily("You must select a tower first!", 2.0f));
+            return false;
+        }
         if (gems >= item.price)
         {
             if (item.isGold)
@@ -80,7 +85,7 @@ public class ShopManager : MonoBehaviour
     IEnumerator ShowMessageTemporarily(string message, float duration)
     {
         messageTxt.text = message;
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSecondsRealtime(duration);
         messageTxt.text = "";
     }
 
@@ -278,5 +283,15 @@ public class ShopManager : MonoBehaviour
                 count++;
         }
         return count;
+    }
+
+    private bool IsTowerSelected()
+    {
+        for (int i = 0; i < _numberOfSelected; i++)
+        {
+            if (_selectedItems[i].isTower)
+                return true;
+        }
+        return false;
     }
 }
